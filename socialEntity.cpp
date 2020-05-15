@@ -1,4 +1,4 @@
-#include "SocialEntity.h"
+#include "socialEntity.h"
 
 Gender SocialEntity::getGender() {
 

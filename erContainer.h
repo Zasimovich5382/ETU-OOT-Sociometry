@@ -1,7 +1,7 @@
 #pragma once
-#include "Container.h"
-#include "Entity.h"
-#include "Relation.h"
+#include "container.h"
+#include "entity.h"
+#include "relation.h"
 
 template<typename ValueType>
 class ErContainer : Container
