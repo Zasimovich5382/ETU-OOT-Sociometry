@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Relation.h"
+#include "relation.h"
 
 #include <list>
 #include <string>

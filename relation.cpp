@@ -1,4 +1,4 @@
-#include "Relation.h"
+#include "relation.h"
 
 Relation::Relation(Type type, Entity f, Entity s) {
 	this->type = type;
