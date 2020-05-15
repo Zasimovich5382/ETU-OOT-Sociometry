@@ -5,6 +5,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    loginForm = new LoginForm();
+    loginForm->show();
     ui->setupUi(this);
 }
 

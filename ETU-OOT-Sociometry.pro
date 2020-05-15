@@ -26,18 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    userform.cpp \
-    adminform.cpp \
-    loginform.cpp
+        loginform.cpp \
+        participants.cpp
 
 HEADERS += \
         mainwindow.h \
-    userform.h \
-    adminform.h \
-    loginform.h
+        loginform.h \
+        participants.h
 
 FORMS += \
         mainwindow.ui \
-    userform.ui \
-    adminform.ui \
-    loginform.ui
+        loginform.ui \
+        participants.ui
