@@ -33,6 +33,7 @@ SOURCES += \
 #        iterator.cpp \
 #        erContainer.cpp \
 #    entity.cpp
+    participantitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,6 +45,7 @@ HEADERS += \
 #        entity.h \
 #        container.h \
 #    relation.h
+    participantitem.h
 
 
 FORMS += \

@@ -58,7 +58,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="adminBtn">
+       <widget class="QPushButton" name="updateParticipantsBtn">
         <property name="enabled">
          <bool>true</bool>
         </property>

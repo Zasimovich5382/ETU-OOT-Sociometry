@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loginForm = new LoginForm();
     loginForm->show();
     ui->setupUi(this);
-    ui->adminBtn->setHidden(true);
+    ui->updateParticipantsBtn->setHidden(true);
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete participantsForm;
     delete loginForm;
     delete ui;
 }
@@ -23,7 +24,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_setRole(enum ROLE role)
 {
     if (role == ADMIN){
-        ui->adminBtn->setHidden(false);
+        ui->updateParticipantsBtn->setHidden(false);
     }
     this->show();
+}
+
+void MainWindow::on_updateParticipantsBtn_clicked()
+{
+    participantsForm = new Participants();
+    participantsForm->show();
 }

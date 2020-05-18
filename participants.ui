@@ -42,7 +42,7 @@
     <string>Name</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="addParticipantBtn">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -54,29 +54,6 @@
    <property name="text">
     <string>Add participant</string>
    </property>
-  </widget>
-  <widget class="QScrollArea" name="participantsList">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>110</y>
-     <width>331</width>
-     <height>311</height>
-    </rect>
-   </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>329</width>
-      <height>309</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QComboBox" name="chooseParticipantBox">
    <property name="geometry">
@@ -101,7 +78,7 @@
     <string>Choose participant:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="saveChoicesBtn">
    <property name="geometry">
     <rect>
      <x>470</x>
@@ -114,7 +91,7 @@
     <string>Save choices</string>
    </property>
   </widget>
-  <widget class="QGroupBox" name="sex">
+  <widget class="QGroupBox" name="genderGroupBox">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -124,7 +101,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Sex:</string>
+    <string>Gender:</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -142,6 +119,16 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QListWidget" name="participantsListWidget">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>110</y>
+     <width>351</width>
+     <height>301</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

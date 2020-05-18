@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include "loginform.h"
+#include "participants.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,9 +21,12 @@ public:
 private slots:
     void on_setRole(enum ROLE);
 
+    void on_updateParticipantsBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
+    Participants *participantsForm;
 };
 
 #endif // MAINWINDOW_H
