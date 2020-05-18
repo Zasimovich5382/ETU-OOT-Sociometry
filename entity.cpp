@@ -1,5 +1,6 @@
 #include "entity.h"
 
+
 Entity::Entity() {
 
 }
@@ -17,19 +18,23 @@ string Entity::getName() {
 
     return this->name;
 }
-void Entity::addRelation(Relation relation) {
+void Entity::addRelation(Relation *relation) {
 
     relations.push_back(relation);
 }
-void Entity::removeRelation(Relation relation) {
 
-    list<Relation> copy = relations;
+void Entity::removeRelation(Relation *relation) {
 
-    for (auto iter = copy.begin(); iter != copy.end(); iter++)
+    for (auto iter = relations.begin(); iter != relations.end(); iter++)
     {
-        Relation r = *iter;
-        if (r.equals(relation)) relations.erase(iter);
+        Relation* r = *iter;
+        if (r->equals(*relation)) {
+            relations.erase(iter);
+            break;
+        }
+
     }
+
 
 }
 void Entity::removeAllRelations() {
@@ -37,17 +42,26 @@ void Entity::removeAllRelations() {
     relations.clear();
 }
 
-bool Entity::isRelatedTo(Entity entity) {
-    for (Relation r : relations) {
-        if (r.getFirstEntity.equals(entity) || r.getSecondEntity.equals(entity))
-            return true;
-        return false;
-
+bool Entity::isRelatedTo(Entity *entity) {
+    for (auto iter = relations.begin(); iter != relations.end(); iter++)
+    {
+        Relation* r = *iter;
+        if (r->getFirstEntity().getName() == entity->getName() || r->getSecondEntity().getName() == entity->getName()) return true;
     }
+
+    return false;
 }
 
-bool Entity::equals(Entity e) {
-
-    return this->name == e.name;
+list<Relation*> Entity::getRelations(){
+    return this->relations;
 }
 
+void Entity::deleteEntity(){
+
+    for (auto iter = relations.begin(); iter != relations.end(); iter++)
+    {
+        Relation* r = *iter;
+        r->deleteRelation();
+    }
+    //add destructor
+}

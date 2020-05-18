@@ -1,31 +1,23 @@
-#pragma once
-#include "iterator.h"
-#include <list>
-#include <iostream>
+#ifndef CONTAINER_H
+#define CONTAINER_H
+#include "own_iterator.h"
 #include <memory>
+#include "entity.h"
 
-using namespace std;
-
-template<typename ValueType>
-class Container{
-
+class Container
+{
 public:
-	typedef Iterator<ValueType> iterator;
-	typedef Iterator<ValueType> const_iterator;
+    typedef OwnIterator<Entity> iterator;
+    typedef OwnIterator<const Entity> const_iterator;
 
-	//Container(initializer_list<int> values);
+    Container(std::initializer_list<Entity> values);
 
-	virtual iterator begin()=0;
-	virtual iterator end()=0;
+    virtual iterator begin();
+    virtual iterator end();
 
-	virtual const_iterator begin() const = 0;
-	virtual const_iterator end() const = 0;
-
-	const size_t size;
-
-	unique_ptr<ValueType[]> data;
-
-	virtual void clear() = 0;
+    virtual const_iterator begin() const;
+    virtual const_iterator end() const;
 
 };
 
+#endif // CONTAINER_H
