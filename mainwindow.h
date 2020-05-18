@@ -23,6 +23,14 @@ private slots:
 
     void on_updateParticipantsBtn_clicked();
 
+    void on_loadPreviousStateBtn_clicked();
+
+    void on_saveCurrentStateBtn_clicked();
+
+    void on_showResearchResultBtn_clicked();
+
+    void on_writeConclusionBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
