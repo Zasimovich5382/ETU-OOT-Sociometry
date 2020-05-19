@@ -27,23 +27,17 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         loginform.cpp \
-        participants.cpp \
-        socialEntity.cpp \
-        relation.cpp \
-        iterator.cpp \
-        erContainer.cpp \
-    entity.cpp
+        participants.cpp
 
 HEADERS += \
+    ercontainer.h \
         mainwindow.h \
         loginform.h \
         participants.h \
-        socialEntity.h \
         iterator.h \
-        erContainer.h \
         entity.h \
-        container.h \
-    relation.h
+    relation.h \
+    socialentity.h
 
 
 FORMS += \
