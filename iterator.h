@@ -1,19 +1,86 @@
-#pragma once
-#include "erContainer.h"
-template<typename ValueType>
-class Iterator : public std::iterator<std::input_iterator_tag, ValueType>
-{
-	friend class ErContainer;
-private:
-	Iterator(ValueType* p);
-public:
-	Iterator(const Iterator& it);
+#ifndef ITERATOR_H
+#define ITERATOR_H
 
-	bool operator!=(Iterator const& other) const;
-	bool operator==(Iterator const& other) const; //need for BOOST_FOREACH
-	typename Iterator::reference operator*() const;
-	Iterator& operator++();
+#include <string>
+#include <iostream>
+#include <list>
+#include "socialentity.h"
+
+
+template<class T>
+class ERContainer;
+
+template<class T>
+class EntityIterator{
+    typedef SocialEntity<T>  value_type;
+    typedef SocialEntity<T>& reference;
+    typedef SocialEntity<T>* pointer;
+
+    friend class ERContainer<T>;
+
+public:
+    EntityIterator();
+    EntityIterator(const EntityIterator& it);
+
+    bool operator!=(EntityIterator const& other) const;
+    bool operator==(EntityIterator const& other) const;
+
+    reference operator*() const;
+
+    EntityIterator& operator++();
+    EntityIterator& operator++(int);
+
 private:
-	ValueType* p;
+    EntityIterator(SocialEntity<T>* ptr);
+    SocialEntity<T>* ptr;
 };
 
+template<class T>
+EntityIterator<T>::EntityIterator():
+    ptr(nullptr)
+{}
+
+template<class T>
+EntityIterator<T>::EntityIterator(SocialEntity<T>* ptr):
+    ptr(ptr)
+{}
+
+template<class T>
+EntityIterator<T>::EntityIterator(const EntityIterator& other):
+    ptr(other.ptr)
+{}
+
+template<class T>
+bool EntityIterator<T>::operator!=(EntityIterator const& other) const
+{
+    return ptr != other.ptr;
+}
+
+template<class T>
+bool EntityIterator<T>::operator==(EntityIterator const& other) const
+{
+    return ptr == other.ptr;
+}
+
+template<class T>
+typename EntityIterator<T>::reference EntityIterator<T>::operator*() const
+{
+    return *ptr;
+}
+
+template<class T>
+EntityIterator<T>& EntityIterator<T>::operator++()
+{
+    ptr++;
+    return *this;
+}
+
+template<class T>
+EntityIterator<T>& EntityIterator<T>::operator++(int)
+{
+    auto it = this;
+    ptr++;
+    return *it;
+}
+
+#endif // ITERATOR_H

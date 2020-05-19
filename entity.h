@@ -1,29 +1,21 @@
-#pragma once
+#ifndef ENTITY_H
+#define ENTITY_H
 
-#include "relation.h"
-
+#include <iostream>
 #include <list>
-#include <string>
 
-using namespace std;
+template<class T>
+class Relation;
 
-class Entity
-{
-private: 
-	list<Relation> relations;
-	string name;
-	
+//interface
+template<class T>
+class Entity{
 public:
-	Entity();
-	Entity(string name);
-	void setName(string name);
-	string getName();
-	void addRelation(Relation relation);
-	void removeRelation(Relation relations);
-	void removeAllRelations();
-	bool isRelatedTo(Entity entity);
-	bool equals(Entity entity);
-
-
+    virtual void removeRelation(const T& name) = 0;
+    virtual Relation<T>* getRelationWith(const T& name) = 0;
+    virtual bool isRelatedTo(const T& name) = 0;
+    virtual void setName(const T& name) = 0;
+    virtual const T& getName() = 0;
+    virtual std::list<Relation<T>>& getRelations() = 0;
 };
-
+#endif // ENTITY_H
