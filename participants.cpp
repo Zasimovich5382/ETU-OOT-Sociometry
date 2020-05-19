@@ -58,12 +58,17 @@ void Participants::initParticipantsList()
         ui->participantsListWidget->addItem(participant);
         ui->participantsListWidget->setItemWidget(participant, item);
     }
-    // just for view - remove first line - REMOVE IT AFTER FIX
-    ui->participantsListWidget->takeItem(0);
 }
 
 
 void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &name)
 {
-    //on update show previous saved item and remove choosen name
+    for (int i = 0; i < ui->participantsListWidget->count(); i++){
+        QListWidgetItem* item = ui->participantsListWidget->item(i);
+        ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
+        item->setHidden(false);
+        if(widget->getParticipantInfo() == name){
+            item->setHidden(true);
+        }
+    }
 }
