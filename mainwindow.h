@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
 #include "loginform.h"
+#include "participants.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,9 +18,23 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_setRole(enum ROLE);
+
+    void on_updateParticipantsBtn_clicked();
+
+    void on_loadPreviousStateBtn_clicked();
+
+    void on_saveCurrentStateBtn_clicked();
+
+    void on_showResearchResultBtn_clicked();
+
+    void on_writeConclusionBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
+    Participants *participantsForm;
 };
 
 #endif // MAINWINDOW_H
