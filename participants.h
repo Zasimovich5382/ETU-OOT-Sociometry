@@ -5,7 +5,9 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include <QListWidgetItem>
-#include <participantitem.h>
+
+#include "participantitem.h"
+#include "ercontainer.h"
 
 namespace Ui {
 class Participants;
@@ -18,7 +20,8 @@ class Participants : public QWidget
 public:
     explicit Participants(QWidget *parent = 0);
     void closeEvent (QCloseEvent *event);
-    // add method to send graph ftom mainwindow to participants
+    void setGraph(ERContainer<std::string> *graph);
+    void initParticipantsList();
     ~Participants();
 
 private slots:
@@ -28,12 +31,16 @@ private slots:
 
     void on_chooseParticipantBox_currentIndexChanged(const QString &name);
 
+signals:
+    void updateGraph();
+
+
 private:
     Ui::Participants *ui;
-    // temporary ->  replace with erGraph *ergraph;
-    QStringList testlist = {"Olya", "Ne Olya", "Masha", "Ne Masha"};
-    QVector <ParticipantItem*> participants;
-    void initParticipantsList();
+    ERContainer<std::string> *graph;
+
+    void participantFormAddNew(QString &name);
+
 };
 
 #endif // PARTICIPANTS_H

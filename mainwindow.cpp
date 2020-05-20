@@ -10,9 +10,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->updateParticipantsBtn->setHidden(true);
     ui->writeConclusionBtn->setHidden(true);
+    participantsForm = new Participants();
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
+    graph = new ERContainer<std::string>();
+    graph->addEntity("Misha", MALE);
+    graph->addEntity("Olya", FEMALE);
 }
 
 MainWindow::~MainWindow()
@@ -33,8 +37,9 @@ void MainWindow::on_setRole(enum ROLE role)
 
 void MainWindow::on_updateParticipantsBtn_clicked()
 {
-    participantsForm = new Participants();
     participantsForm->show();
+    participantsForm->setGraph(graph);
+    participantsForm->initParticipantsList();
 }
 
 void MainWindow::on_loadPreviousStateBtn_clicked()

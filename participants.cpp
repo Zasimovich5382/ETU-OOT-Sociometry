@@ -6,13 +6,6 @@ Participants::Participants(QWidget *parent) :
     ui(new Ui::Participants)
 {
     ui->setupUi(this);
-    //iterate through conteiner entities and whow them in chooseParticipantBox
-    //ui->chooseParticipantBox->addItems(participants);
-    for (QString name : testlist){
-        ui->chooseParticipantBox->addItem(name);
-        this->participants.append(new ParticipantItem(name));
-    }
-    initParticipantsList();//to show all names
 
 }
 
@@ -26,17 +19,23 @@ void Participants::closeEvent (QCloseEvent *event)
     // on close update the graph
 }
 
+void Participants::setGraph(ERContainer<std::string> *graph)
+{
+    this->graph = graph;
+}
+
 void Participants::on_addParticipantBtn_clicked()
 {
-    //create new entity and add to container
+    QString name = ui->nameLine->text();
+
     if(ui->femaleRB->isChecked()){
-        //female
+        graph->addEntity(name.toStdString(), FEMALE);
     }
     else {
-        //male
+        graph->addEntity(name.toStdString(), MALE);
     }
 
-    QString name = ui->nameLine->text();
+     participantFormAddNew(name);
 
     // send signal to update graph
 }
@@ -49,16 +48,17 @@ void Participants::on_saveChoicesBtn_clicked()
 
 void Participants::initParticipantsList()
 {
+    ui->chooseParticipantBox->clear();
     ui->participantsListWidget->clear();
-    for (ParticipantItem* item: this->participants) {
-        QListWidgetItem *participant = new QListWidgetItem();
 
-        participant->setSizeHint(item->minimumSizeHint());
-        item->setParent(this);
-        ui->participantsListWidget->addItem(participant);
-        ui->participantsListWidget->setItemWidget(participant, item);
+    for(auto entity = graph->begin(); entity != graph->end(); entity++){
+        QString name = QString::fromStdString(entity->getName());
+        participantFormAddNew(name);
     }
+
 }
+
+
 
 
 void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &name)
@@ -71,4 +71,17 @@ void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &na
             item->setHidden(true);
         }
     }
+}
+
+void Participants::participantFormAddNew(QString &name)
+{
+    ui->chooseParticipantBox->addItem(name);
+
+    //Participant's list
+    QListWidgetItem *participant = new QListWidgetItem();
+    ParticipantItem *participantItem = new ParticipantItem(name);
+    participant->setSizeHint(participantItem->minimumSizeHint());
+    participantItem->setParent(this);
+    ui->participantsListWidget->addItem(participant);
+    ui->participantsListWidget->setItemWidget(participant, participantItem);
 }
