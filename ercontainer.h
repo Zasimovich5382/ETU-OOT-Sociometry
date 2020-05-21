@@ -92,7 +92,7 @@ bool ERContainer<T>::addRelation(const T &first, const T &second, Type type)
     SocialEntity<T>* firstEntity = find(first);
     SocialEntity<T>* secondEntity = find(second);
 
-    if (!firstEntity || !secondEntity){
+    if (!firstEntity || !secondEntity || firstEntity == secondEntity){
         return false;
     }
 

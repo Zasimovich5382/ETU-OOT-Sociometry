@@ -17,6 +17,17 @@ QString ParticipantItem::getParticipantInfo()
     return this->participantInfo->text();
 }
 
+int ParticipantItem::getRelationType()
+{
+    if((this->like->isChecked() && this->dislike->isChecked()) ||
+       (!this->like->isChecked() && !this->dislike->isChecked())) {
+        return -1;
+    }
+    else {
+        return this->like->isChecked();
+    }
+}
+
 ParticipantItem::~ParticipantItem(){
     delete like;
     delete dislike;
