@@ -15,8 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
     graph = new ERContainer<std::string>();
-    graph->addEntity("Misha", MALE);
+    graph->addEntity("Lesha", MALE);
     graph->addEntity("Olya", FEMALE);
+    graph->addEntity("Masha", FEMALE);
+    graph->addRelation("Masha", "Olya", POSITIVE);
+    graph->addRelation("Olya", "Masha", POSITIVE);
 }
 
 MainWindow::~MainWindow()

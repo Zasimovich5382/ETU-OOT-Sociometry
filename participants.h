@@ -39,7 +39,8 @@ private:
     Ui::Participants *ui;
     ERContainer<std::string> *graph;
 
-    void participantFormAddNew(QString &name);
+    void participantFormAddParticipant(QString& name);
+    void participantFormSetRelations(SocialEntity<std::string>& entity);
 
 };
 

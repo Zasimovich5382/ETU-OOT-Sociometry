@@ -35,14 +35,44 @@ void Participants::on_addParticipantBtn_clicked()
         graph->addEntity(name.toStdString(), MALE);
     }
 
-     participantFormAddNew(name);
+     participantFormAddParticipant(name);
 
     // send signal to update graph
 }
 
 void Participants::on_saveChoicesBtn_clicked()
 {
+    std::string name = ui->chooseParticipantBox->currentText().toStdString();
+    auto *entity = graph->find(name);
     //iterate through list of QScrollArea which are entities and foreach add new relation or update the previous
+    for (int i = 0; i < ui->participantsListWidget->count(); i++){
+        QListWidgetItem* item = ui->participantsListWidget->item(i);
+        ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
+        int relType = widget->getRelationType();
+        std::string relatedName = widget->getParticipantInfo().toStdString();
+        if(relType < 0 && !entity->isRelatedTo(relatedName)){ // if there were no relations and nothing is changed
+            continue;
+        }
+        else if(entity->isRelatedTo(relatedName)){ //change or remove relation
+            auto *relation = entity->getRelationWith(relatedName);
+            switch (relType) {
+            case -1:
+                entity->removeRelation(relatedName);
+                break;
+            case 0:
+                relation->setType(NEGATIVE);
+                break;
+            case 1:
+                relation->setType(POSITIVE);
+                break;
+            default:
+                break;
+            }
+        }
+        else {
+            graph->addRelation(name, relatedName, (Type)relType);
+        }
+    }
 
 }
 
@@ -51,9 +81,9 @@ void Participants::initParticipantsList()
     ui->chooseParticipantBox->clear();
     ui->participantsListWidget->clear();
 
-    for(auto entity = graph->begin(); entity != graph->end(); entity++){
-        QString name = QString::fromStdString(entity->getName());
-        participantFormAddNew(name);
+    for(auto entity : *graph){
+        QString name = QString::fromStdString(entity.getName());
+        participantFormAddParticipant(name);
     }
 
 }
@@ -73,15 +103,21 @@ void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &na
     }
 }
 
-void Participants::participantFormAddNew(QString &name)
+void Participants::participantFormAddParticipant(QString& name)
 {
     ui->chooseParticipantBox->addItem(name);
-
-    //Participant's list
     QListWidgetItem *participant = new QListWidgetItem();
     ParticipantItem *participantItem = new ParticipantItem(name);
     participant->setSizeHint(participantItem->minimumSizeHint());
     participantItem->setParent(this);
     ui->participantsListWidget->addItem(participant);
     ui->participantsListWidget->setItemWidget(participant, participantItem);
+}
+
+void Participants::participantFormSetRelations(SocialEntity<std::string>& entity)
+{
+    //Participant's list
+//    for(auto relation : entity.getRelations()){ // add update checkboxes if relations already exists
+
+//    }
 }

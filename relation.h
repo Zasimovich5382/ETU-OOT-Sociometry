@@ -7,9 +7,8 @@ template<class T>
 class SocialEntity;
 
 enum Type{
-    POSITIVE,
     NEGATIVE,
-    NEUTRAL
+    POSITIVE
 };
 
 template<class T>
