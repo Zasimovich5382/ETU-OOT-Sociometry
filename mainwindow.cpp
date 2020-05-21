@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->updateParticipantsBtn->setHidden(true);
     ui->writeConclusionBtn->setHidden(true);
     participantsForm = new Participants();
+    conclusionForm = new ConclusionForm();
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
@@ -35,6 +36,10 @@ void MainWindow::on_setRole(enum ROLE role)
         ui->updateParticipantsBtn->setHidden(false);
         ui->writeConclusionBtn->setHidden(false);
     }
+    else{
+        ui->updateParticipantsBtn->setHidden(true);
+        ui->writeConclusionBtn->setHidden(true);
+    }
     this->show();
 }
 
@@ -57,10 +62,22 @@ void MainWindow::on_saveCurrentStateBtn_clicked()
 
 void MainWindow::on_showResearchResultBtn_clicked()
 {
-    // show the conclusion written by admin
+    conclusionForm->loadTextInAdminMode(false);
+    conclusionForm->show();
 }
 
 void MainWindow::on_writeConclusionBtn_clicked()
 {
     // open text window and show written by admin conclusion for this graph
+    conclusionForm->loadTextInAdminMode(true);
+    conclusionForm->show();
+}
+
+void MainWindow::on_actionLog_out_triggered()
+{
+    this->close();
+    loginForm->show();
+    connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
+    //this->show();
+
 }

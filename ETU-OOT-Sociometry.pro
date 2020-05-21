@@ -28,7 +28,8 @@ SOURCES += \
         mainwindow.cpp \
         loginform.cpp \
         participants.cpp \
-        participantitem.cpp
+        participantitem.cpp \
+    conclusionform.cpp
 
 
 HEADERS += \
@@ -40,10 +41,12 @@ HEADERS += \
         entity.h \
         relation.h \
        socialentity.h \
-       participantitem.h
+       participantitem.h \
+    conclusionform.h
 
 
 FORMS += \
         mainwindow.ui \
         loginform.ui \
-        participants.ui
+        participants.ui \
+    conclusionform.ui
