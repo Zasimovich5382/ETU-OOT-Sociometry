@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //new qt syntax, wow, used lambad because slot = one line setter
     connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
         this->conclusion = text; }) ;
-
+    scene = new GraphWidget(ui->graphicsView);
     graph = new ERContainer<std::string>();
 //    graph->addEntity("Lesha", MALE);
 //    graph->addEntity("Olya", FEMALE);
