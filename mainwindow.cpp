@@ -106,6 +106,7 @@ void MainWindow::saveToJson(const QString& filename)
     for(auto& entity: *graph){
         QJsonObject entity_repr;
         //QVariant has constuctor that use const char*, which is given by data() method
+        entity_repr.insert("id", QJsonValue::fromVariant(entity.getId()));
         entity_repr.insert("name", QJsonValue::fromVariant(entity.getName().data()));
         entity_repr.insert("age", QJsonValue::fromVariant(entity.getAge()));
         entity_repr.insert("gender", QJsonValue::fromVariant(entity.getGender()));
@@ -146,9 +147,11 @@ void MainWindow::loadFromJson(const QString& filename)
         QString name = entity_repr["name"].toString();
         int age = entity_repr["age"].toInt();
         int gender = entity_repr["gender"].toInt();
+        int id = entity_repr["id"].toInt();
 
         SocialEntity<std::string> entity(name.toStdString(), (Gender)gender);
         entity.setAge(age);
+        entity.setId(id);
         graph->addEntity(entity);
     }
 

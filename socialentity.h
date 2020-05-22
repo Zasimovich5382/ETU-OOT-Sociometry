@@ -36,7 +36,11 @@ public:
     void setGender(Gender gender);
     void setAge(int age);
 
+    int getId() const;
+    int setId(int new_id);
+
 private:
+    int id;
     T name;
     Gender gender;
     int age;
@@ -47,14 +51,16 @@ template<class T>
 SocialEntity<T>::SocialEntity():
     name(""),
     gender(DEFAULT),
-    age(-1)
+    age(-1),
+    id(++Entity<T>::id_counter)
 {}
 
 template<class T>
 SocialEntity<T>::SocialEntity(const T& name, Gender gender):
     name(name),
     gender(gender),
-    age(-1)
+    age(-1),
+    id(++Entity<T>::id_counter)
 {}
 
 template<class T>
@@ -140,6 +146,19 @@ void SocialEntity<T>::setGender(Gender gender) {
 template<class T>
 void SocialEntity<T>::setAge(int age) {
     this->age = age;
+}
+
+template<class T>
+int SocialEntity<T>::getId() const
+{
+    return this->id;
+}
+
+template<class T>
+int SocialEntity<T>::setId(int new_id)
+{
+    this->id = new_id;
+    Entity<T>::id_counter = new_id;
 }
 
 #endif // SOCIALENTITY_H

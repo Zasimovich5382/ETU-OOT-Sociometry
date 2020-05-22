@@ -36,8 +36,8 @@ void Participants::on_addParticipantBtn_clicked()
     else {
         graph->addEntity(name.toStdString(), MALE);
     }
-
-     participantFormAddParticipant(name);
+    auto * e = graph->find(name.toStdString());
+    participantFormAddParticipant(*e);
 
     // send signal to update graph
 }
@@ -82,9 +82,8 @@ void Participants::initParticipantsList()
 {
     ui->chooseParticipantBox->clear();
     ui->participantsListWidget->clear();
-    for(auto entity : *graph){
-        QString name = QString::fromStdString(entity.getName());
-        participantFormAddParticipant(name);
+    for(auto& entity : *graph){
+        participantFormAddParticipant(entity);
     }
 }
 
@@ -105,11 +104,12 @@ void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &na
     participantFormSetRelations();
 }
 
-void Participants::participantFormAddParticipant(QString& name)
+void Participants::participantFormAddParticipant(SocialEntity<std::string>& e)
 {
-    ui->chooseParticipantBox->addItem(name);
+    ui->chooseParticipantBox->addItem(QString::fromStdString(e.getName()));
     QListWidgetItem *participant = new QListWidgetItem();
-    ParticipantItem *participantItem = new ParticipantItem(name);
+    QString gender = e.getGender() == MALE ? "male" : "female";
+    ParticipantItem *participantItem = new ParticipantItem(QString::fromStdString(e.getName()), gender, e.getId());
     participant->setSizeHint(participantItem->minimumSizeHint());
     participantItem->setParent(this);
     ui->participantsListWidget->addItem(participant);

@@ -17,5 +17,10 @@ public:
     virtual void setName(const T& name) = 0;
     virtual const T& getName() = 0;
     virtual std::list<Relation<T>>& getRelations() = 0;
+protected:
+     static int id_counter;
 };
+
+template<class T>
+int Entity<T>::id_counter = 0;
 #endif // ENTITY_H
