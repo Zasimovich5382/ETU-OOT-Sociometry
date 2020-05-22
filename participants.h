@@ -40,7 +40,7 @@ private:
     ERContainer<std::string> *graph;
     QString current_participant;
 
-    void participantFormAddParticipant(QString& name);
+    void participantFormAddParticipant(SocialEntity<std::string>& e);
     void participantFormSetRelations();
 
 };

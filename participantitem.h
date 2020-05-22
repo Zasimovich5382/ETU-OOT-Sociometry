@@ -11,7 +11,7 @@ class ParticipantItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ParticipantItem(QString &participantInfo, QWidget *parent = nullptr);
+    explicit ParticipantItem(const QString &participantInfo, const QString& genger, int id, QWidget *parent = nullptr);
     QString getParticipantInfo();
     int getRelationType();
     void setRelationType(bool positive);

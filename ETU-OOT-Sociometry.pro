@@ -29,7 +29,10 @@ SOURCES += \
         loginform.cpp \
         participants.cpp \
         participantitem.cpp \
-    conclusionform.cpp
+        conclusionform.cpp \
+        node.cpp \
+        edge.cpp \
+        graphwidget.cpp
 
 
 HEADERS += \
@@ -40,13 +43,16 @@ HEADERS += \
         iterator.h \
         entity.h \
         relation.h \
-       socialentity.h \
-       participantitem.h \
-    conclusionform.h
+        socialentity.h \
+        participantitem.h \
+        conclusionform.h \
+        node.h \
+        edge.h \
+        graphwidget.h
 
 
 FORMS += \
         mainwindow.ui \
         loginform.ui \
         participants.ui \
-    conclusionform.ui
+        conclusionform.ui

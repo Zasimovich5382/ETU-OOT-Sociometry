@@ -12,21 +12,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->writeConclusionBtn->setHidden(true);
     participantsForm = new Participants();
     conclusionForm = new ConclusionForm();
+    graphWidget = new GraphWidget(this);
+    ui->horizontalLayout->addWidget(graphWidget);
+    graph = new ERContainer<std::string>();
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
-    //new qt syntax, wow, used lambad because slot = one line setter
     connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
         this->conclusion = text; }) ;
 
-    graph = new ERContainer<std::string>();
-//    graph->addEntity("Lesha", MALE);
-//    graph->addEntity("Olya", FEMALE);
-//    graph->addEntity("Masha", FEMALE);
-//    graph->addRelation("Masha", "Olya", POSITIVE);
-//    graph->addRelation("Olya", "Masha", POSITIVE);
-
-//    saveToJson("test.json");
+    connect(participantsForm, &Participants::updateGraph, [=]() {
+        graphWidget->showGraph(graph); }) ;
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +61,7 @@ void MainWindow::on_loadPreviousStateBtn_clicked()
     qDebug() << filename;
     if (filename.isEmpty()) return;
     loadFromJson(filename);
+    graphWidget->showGraph(graph);
 }
 
 void MainWindow::on_saveCurrentStateBtn_clicked()
@@ -92,8 +89,11 @@ void MainWindow::on_writeConclusionBtn_clicked()
 void MainWindow::on_actionLog_out_triggered()
 {
     this->close();
+    graphWidget->clear();
+    graph->clear();
+    conclusion = "";
     loginForm->show();
-    connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
+    //connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 }
 
 void MainWindow::saveToJson(const QString& filename)
@@ -106,6 +106,7 @@ void MainWindow::saveToJson(const QString& filename)
     for(auto& entity: *graph){
         QJsonObject entity_repr;
         //QVariant has constuctor that use const char*, which is given by data() method
+        entity_repr.insert("id", QJsonValue::fromVariant(entity.getId()));
         entity_repr.insert("name", QJsonValue::fromVariant(entity.getName().data()));
         entity_repr.insert("age", QJsonValue::fromVariant(entity.getAge()));
         entity_repr.insert("gender", QJsonValue::fromVariant(entity.getGender()));
@@ -146,9 +147,11 @@ void MainWindow::loadFromJson(const QString& filename)
         QString name = entity_repr["name"].toString();
         int age = entity_repr["age"].toInt();
         int gender = entity_repr["gender"].toInt();
+        int id = entity_repr["id"].toInt();
 
         SocialEntity<std::string> entity(name.toStdString(), (Gender)gender);
         entity.setAge(age);
+        entity.setId(id);
         graph->addEntity(entity);
     }
 

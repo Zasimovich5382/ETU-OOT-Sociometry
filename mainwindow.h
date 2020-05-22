@@ -14,6 +14,7 @@
 #include "participants.h"
 #include "ercontainer.h"
 #include "conclusionform.h"
+#include "graphwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -50,6 +51,7 @@ private:
     LoginForm *loginForm;
     Participants *participantsForm;
     ConclusionForm *conclusionForm;
+    GraphWidget *graphWidget;
     QString conclusion;
 
     ERContainer<std::string> *graph;

@@ -1,0 +1,49 @@
+{
+    "conclusion": "tets",
+    "entities": [
+        {
+            "age": -1,
+            "gender": 0,
+            "id": 1,
+            "name": "test"
+        },
+        {
+            "age": -1,
+            "gender": 0,
+            "id": 2,
+            "name": "test1"
+        },
+        {
+            "age": -1,
+            "gender": 0,
+            "id": 3,
+            "name": "test2"
+        },
+        {
+            "age": -1,
+            "gender": 1,
+            "id": 4,
+            "name": "test3"
+        }
+    ],
+    "relations": [
+        {
+            "description": "",
+            "from": "test",
+            "to": "test1",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test",
+            "to": "test2",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test",
+            "to": "test3",
+            "type": 1
+        }
+    ]
+}
