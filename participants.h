@@ -38,9 +38,10 @@ signals:
 private:
     Ui::Participants *ui;
     ERContainer<std::string> *graph;
+    QString current_participant;
 
     void participantFormAddParticipant(QString& name);
-    void participantFormSetRelations(SocialEntity<std::string>& entity);
+    void participantFormSetRelations();
 
 };
 

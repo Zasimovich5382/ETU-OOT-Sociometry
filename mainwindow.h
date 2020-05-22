@@ -2,6 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 #include <QDebug>
 
 #include "loginform.h"
@@ -34,6 +40,9 @@ private slots:
     void on_writeConclusionBtn_clicked();
 
 private:
+    void saveToJson(const QString& filename);
+    void loadFromJson(const QString& filename);
+
     Ui::MainWindow *ui;
     LoginForm *loginForm;
     Participants *participantsForm;

@@ -1,12 +1,14 @@
 #include "participants.h"
 #include "ui_participants.h"
 
+#include <QDebug>
+
 Participants::Participants(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Participants)
 {
     ui->setupUi(this);
-
+    current_participant = "";
 }
 
 Participants::~Participants()
@@ -80,12 +82,10 @@ void Participants::initParticipantsList()
 {
     ui->chooseParticipantBox->clear();
     ui->participantsListWidget->clear();
-
     for(auto entity : *graph){
         QString name = QString::fromStdString(entity.getName());
         participantFormAddParticipant(name);
     }
-
 }
 
 
@@ -93,6 +93,7 @@ void Participants::initParticipantsList()
 
 void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &name)
 {
+    current_participant = name;
     for (int i = 0; i < ui->participantsListWidget->count(); i++){
         QListWidgetItem* item = ui->participantsListWidget->item(i);
         ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
@@ -101,6 +102,7 @@ void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &na
             item->setHidden(true);
         }
     }
+    participantFormSetRelations();
 }
 
 void Participants::participantFormAddParticipant(QString& name)
@@ -114,10 +116,21 @@ void Participants::participantFormAddParticipant(QString& name)
     ui->participantsListWidget->setItemWidget(participant, participantItem);
 }
 
-void Participants::participantFormSetRelations(SocialEntity<std::string>& entity)
+void Participants::participantFormSetRelations()
 {
-    //Participant's list
-//    for(auto relation : entity.getRelations()){ // add update checkboxes if relations already exists
+    auto* entity = graph->find(current_participant.toStdString());
+    if (!entity) return;
 
-//    }
+    for (int i = 0; i < ui->participantsListWidget->count(); i++){
+        QListWidgetItem* item = ui->participantsListWidget->item(i);
+        ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
+        widget->clearButtons();
+        for(auto relation : entity->getRelations()){
+            QString match = QString::fromStdString(relation.getSecondEntity()->getName());
+            if(widget->getParticipantInfo() == match){
+                widget->setRelationType(relation.getType() == POSITIVE);
+                break;
+            }
+        }
+    }
 }

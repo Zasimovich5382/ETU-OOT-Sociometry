@@ -36,11 +36,11 @@ public:
     bool addRelation(const T& first, const T& second, Type type);
 
     void removeEntity(const T& name);
-    void removeEntity(SocialEntity<T>& entity);
     void removeRelation(const T& first, const T& second);
-    void removeRelation(Relation<T>& relation);
 
     void editRelation(const T& first, const T& second, Type new_type);
+
+    void clear();
 
 private:
     std::list<SocialEntity<T>> entities;
@@ -136,6 +136,12 @@ void ERContainer<T>::editRelation(const T &first, const T &second, Type new_type
 
     Relation<T>* r = firstEntity->getRelationWith(second);
     if (r) r->setType(new_type);
+}
+
+template<class T>
+void ERContainer<T>::clear()
+{
+    entities.clear();
 }
 
 #endif // ER_CONTAINER_H
