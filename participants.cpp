@@ -70,6 +70,7 @@ void Participants::on_saveChoicesBtn_clicked()
             }
         }
         else {
+
             graph->addRelation(name, relatedName, (TypeRelation)relType);
         }
     }

@@ -7,10 +7,6 @@ template<class T>
 class SocialEntity;
 
 enum TypeRelation{
-//    CHOICE,
-//    MUTUALCHOICE,
-//    REJECTION,
-//    MUTUALREJECTION,
     NEGATIVE,
     POSITIVE
 };

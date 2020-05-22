@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QGraphicsScene>
-
 #include "loginform.h"
 #include "participants.h"
 #include "ercontainer.h"
@@ -40,9 +39,14 @@ private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
     Participants *participantsForm;
+<<<<<<< HEAD
     QGraphicsScene  *scene;
     ERContainer<std::string> *graph;
 
+=======
+
+    ERContainer<std::string> *graph;
+>>>>>>> af159bb1e075f3ad88650b4707f4ecb8dfb4d5a4
 };
 
 #endif // MAINWINDOW_H
