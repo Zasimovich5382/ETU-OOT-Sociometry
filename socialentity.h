@@ -79,12 +79,6 @@ void SocialEntity<T>::addRelation(Relation<T> relation) {
     }
 }
 
-// template<class T>
-// void SocialEntity<T>::addRelation(SocialEntity<T>* other) {
-//     addRelation(other, NEUTRAL);
-// }
-
-
 template<class T>
 void SocialEntity<T>::setName(const T& name){
     this->name = name;

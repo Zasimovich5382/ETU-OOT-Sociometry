@@ -50,6 +50,7 @@ private:
     LoginForm *loginForm;
     Participants *participantsForm;
     ConclusionForm *conclusionForm;
+    QString conclusion;
 
     ERContainer<std::string> *graph;
 };

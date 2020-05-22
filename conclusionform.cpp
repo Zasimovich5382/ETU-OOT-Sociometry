@@ -14,12 +14,23 @@ void ConclusionForm::loadTextInAdminMode(bool isAdmin)
     ui->updateDataBox->setHidden(!isAdmin);
 }
 
+void ConclusionForm::setText(const QString &text)
+{
+    ui->textForm->setPlainText(text);
+}
+
 ConclusionForm::~ConclusionForm()
 {
     delete ui;
 }
 
-void ConclusionForm::on_updateDataBox_clicked(QAbstractButton *button)
+void ConclusionForm::on_updateDataBox_accepted()
+{
+    emit conclusionText(ui->textForm->toPlainText());
+    close();
+}
+
+void ConclusionForm::on_updateDataBox_rejected()
 {
     close();
 }

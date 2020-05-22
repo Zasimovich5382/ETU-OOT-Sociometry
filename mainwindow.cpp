@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
+    //new qt syntax, wow, used lambad because slot = one line setter
+    connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
+        this->conclusion = text; }) ;
+
     graph = new ERContainer<std::string>();
 //    graph->addEntity("Lesha", MALE);
 //    graph->addEntity("Olya", FEMALE);
@@ -37,10 +41,12 @@ void MainWindow::on_setRole(enum ROLE role)
     if (role == ADMIN){
         ui->updateParticipantsBtn->setHidden(false);
         ui->writeConclusionBtn->setHidden(false);
+        ui->showResearchResultBtn->setHidden(true);
     }
     else{
         ui->updateParticipantsBtn->setHidden(true);
         ui->writeConclusionBtn->setHidden(true);
+        ui->showResearchResultBtn->setHidden(false);
     }
     this->show();
 }
@@ -71,6 +77,7 @@ void MainWindow::on_saveCurrentStateBtn_clicked()
 void MainWindow::on_showResearchResultBtn_clicked()
 {
     conclusionForm->loadTextInAdminMode(false);
+    conclusionForm->setText(conclusion);
     conclusionForm->show();
 }
 
@@ -78,6 +85,7 @@ void MainWindow::on_writeConclusionBtn_clicked()
 {
     // open text window and show written by admin conclusion for this graph
     conclusionForm->loadTextInAdminMode(true);
+    conclusionForm->setText(conclusion);
     conclusionForm->show();
 }
 
@@ -86,8 +94,6 @@ void MainWindow::on_actionLog_out_triggered()
     this->close();
     loginForm->show();
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
-    //this->show();
-
 }
 
 void MainWindow::saveToJson(const QString& filename)
@@ -113,7 +119,7 @@ void MainWindow::saveToJson(const QString& filename)
             relations_repr.push_back(relation_repr);
         }
     }
-
+    graph_repr.insert("conclusion", QJsonValue::fromVariant(conclusion));
     graph_repr.insert("entities", entities_repr);
     graph_repr.insert("relations", relations_repr);
     QJsonDocument document(graph_repr);
@@ -130,6 +136,8 @@ void MainWindow::loadFromJson(const QString& filename)
     if(!file.open(QFile::ReadOnly)) return;
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
     QJsonObject graph_repr = document.object();
+
+    conclusion = graph_repr["conclusion"].toString();
     QJsonArray entities_repr = graph_repr["entities"].toArray();
     QJsonArray relations_repr = graph_repr["relations"].toArray();
 
