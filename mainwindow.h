@@ -13,6 +13,7 @@
 #include "loginform.h"
 #include "participants.h"
 #include "ercontainer.h"
+#include "conclusionform.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,8 @@ private slots:
 
     void on_writeConclusionBtn_clicked();
 
+    void on_actionLog_out_triggered();
+
 private:
     void saveToJson(const QString& filename);
     void loadFromJson(const QString& filename);
@@ -46,6 +49,7 @@ private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
     Participants *participantsForm;
+    ConclusionForm *conclusionForm;
 
     ERContainer<std::string> *graph;
 };
