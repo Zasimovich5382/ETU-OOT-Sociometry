@@ -24,6 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        drawing_entity.cpp \
+        drawing_relation.cpp \
         main.cpp \
         mainwindow.cpp \
         loginform.cpp \
@@ -32,6 +34,8 @@ SOURCES += \
 
 
 HEADERS += \
+    drawing_entity.h \
+    drawing_relation.h \
         ercontainer.h \
         mainwindow.h \
         loginform.h \

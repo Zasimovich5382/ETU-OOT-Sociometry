@@ -23,7 +23,8 @@ void LoginForm::on_signIn_clicked()
         emit on_setRole(ADMIN);
     }
     else {
-        emit on_setRole(USER);
+        //emit on_setRole(USER);
+        emit on_setRole(ADMIN);
     }
 
     close();

@@ -33,14 +33,15 @@ public:
 
     bool addEntity(SocialEntity<T> entity);
     bool addEntity(const T& name, Gender gender);
-    bool addRelation(const T& first, const T& second, Type type);
+    bool addRelation(const T& first, const T& second, TypeRelation type);
 
     void removeEntity(const T& name);
     void removeEntity(SocialEntity<T>& entity);
     void removeRelation(const T& first, const T& second);
     void removeRelation(Relation<T>& relation);
 
-    void editRelation(const T& first, const T& second, Type new_type);
+    void editRelation(const T& first, const T& second, TypeRelation new_type);
+
 
 private:
     std::list<SocialEntity<T>> entities;
@@ -86,17 +87,20 @@ bool ERContainer<T>::addEntity(const T &name, Gender gender)
 }
 
 template<class T>
-bool ERContainer<T>::addRelation(const T &first, const T &second, Type type)
+bool ERContainer<T>::addRelation(const T &first, const T &second, TypeRelation type)
 {
 
     SocialEntity<T>* firstEntity = find(first);
     SocialEntity<T>* secondEntity = find(second);
 
-    if (!firstEntity || !secondEntity){
+    if (!firstEntity || !secondEntity || firstEntity == secondEntity){
         return false;
     }
 
     firstEntity->addRelation(Relation<T>(firstEntity, secondEntity, type));
+
+    if(type == POSITIVE) secondEntity->incRating();
+
     return true;
 }
 
@@ -129,13 +133,24 @@ void ERContainer<T>::removeRelation(const T& first, const T& second)
 }
 
 template<class T>
-void ERContainer<T>::editRelation(const T &first, const T &second, Type new_type)
+void ERContainer<T>::editRelation(const T &first, const T &second, TypeRelation new_type)
 {
     SocialEntity<T>* firstEntity = find(first);
     if (!firstEntity) return;
 
+    SocialEntity<T>* secondEntity = find(second);
+    if (!secondEntity) return;
+
     Relation<T>* r = firstEntity->getRelationWith(second);
+
+    if(new_type == POSITIVE && r->getType() == NEGATIVE) secondEntity->incRating();
+    else if(new_type == NEGATIVE && r->getType() == POSITIVE) secondEntity->decRating();
+
     if (r) r->setType(new_type);
+
+
 }
+
+
 
 #endif // ER_CONTAINER_H

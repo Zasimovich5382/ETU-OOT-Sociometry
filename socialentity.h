@@ -5,6 +5,8 @@
 #include "relation.h"
 #include <list>
 
+static int countID;
+
 enum Gender {
     MALE,
     FEMALE,
@@ -35,26 +37,35 @@ public:
     int getAge();
     void setGender(Gender gender);
     void setAge(int age);
+    int getID();
+    int getRating();
+    void incRating();
+    void decRating();
 
 private:
+
+    int id = 0;
     T name;
     Gender gender;
     int age;
     std::list<Relation<T>> relations;
+    int rating = 0;
 };
 
 template<class T>
 SocialEntity<T>::SocialEntity():
     name(""),
     gender(DEFAULT),
-    age(-1)
+    age(-1),
+    id(countID++)
 {}
 
 template<class T>
 SocialEntity<T>::SocialEntity(const T& name, Gender gender):
     name(name),
     gender(gender),
-    age(-1)
+    age(-1),
+    id(countID++)
 {}
 
 template<class T>
@@ -146,6 +157,26 @@ void SocialEntity<T>::setGender(Gender gender) {
 template<class T>
 void SocialEntity<T>::setAge(int age) {
     this->age = age;
+}
+
+template<class T>
+int SocialEntity<T>::getID() {
+    return this->id;
+}
+
+template<class T>
+int SocialEntity<T>::getRating(){
+    return this->rating;
+}
+
+template<class T>
+void SocialEntity<T>::incRating(){
+    this->rating++;
+}
+
+template<class T>
+void SocialEntity<T>::decRating(){
+    this->rating--;
 }
 
 #endif // SOCIALENTITY_H

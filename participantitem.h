@@ -12,6 +12,7 @@ class ParticipantItem : public QWidget
 public:
     explicit ParticipantItem(QString &participantInfo, QWidget *parent = nullptr);
     QString getParticipantInfo();
+    int getRelationType();
     ~ParticipantItem();
 
 private:
@@ -20,6 +21,7 @@ private:
     QLabel *participantInfo;
 
 signals:
+
 
 public slots:
 };

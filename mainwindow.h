@@ -3,8 +3,13 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QGraphicsScene>
+
 #include "loginform.h"
 #include "participants.h"
+#include "ercontainer.h"
+#include "drawing_entity.h"
+#include "drawing_relation.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +40,9 @@ private:
     Ui::MainWindow *ui;
     LoginForm *loginForm;
     Participants *participantsForm;
+    QGraphicsScene  *scene;
+    ERContainer<std::string> *graph;
+
 };
 
 #endif // MAINWINDOW_H

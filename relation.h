@@ -6,17 +6,20 @@
 template<class T>
 class SocialEntity;
 
-enum Type{
-    POSITIVE,
+enum TypeRelation{
+//    CHOICE,
+//    MUTUALCHOICE,
+//    REJECTION,
+//    MUTUALREJECTION,
     NEGATIVE,
-    NEUTRAL
+    POSITIVE
 };
 
 template<class T>
 class Relation{
 
 public:
-    Relation(SocialEntity<T>* first, SocialEntity<T>* second, Type type);
+    Relation(SocialEntity<T>* first, SocialEntity<T>* second, TypeRelation type);
     SocialEntity<T>* getFirstEntity();
     SocialEntity<T>* getSecondEntity();
 
@@ -26,23 +29,25 @@ public:
     void setDescription(const std::string& descr);
     std::string getDescription() const;
 
-    void setType(Type type);
-    Type getType();
+    void setType(TypeRelation type);
+    TypeRelation getType();
 
     bool operator==(const Relation& other);
 
 private:
     std::string description; //not necessary
-    Type type;
+    TypeRelation type;
     SocialEntity<T>* firstEntity;
     SocialEntity<T>* secondEntity;
 };
 
 template<class T>
-Relation<T>::Relation(SocialEntity<T>* first, SocialEntity<T>* second, Type type) {
+Relation<T>::Relation(SocialEntity<T>* first, SocialEntity<T>* second, TypeRelation type) {
     this->type = type;
     firstEntity = first;
     secondEntity = second;
+
+
 }
 
 template<class T>
@@ -75,12 +80,12 @@ std::string Relation<T>::getDescription() const
 }
 
 template<class T>
-void Relation<T>::setType(Type type) {
+void Relation<T>::setType(TypeRelation type) {
     this->type = type;
 }
 
 template<class T>
-Type Relation<T>::getType() {
+TypeRelation Relation<T>::getType() {
     return this->type;
 }
 
