@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QCheckBox>
+#include <QRadioButton>
 #include <QLabel>
 #include <QHBoxLayout>
 
@@ -13,11 +14,14 @@ public:
     explicit ParticipantItem(QString &participantInfo, QWidget *parent = nullptr);
     QString getParticipantInfo();
     int getRelationType();
+    void setRelationType(bool positive);
+    void clearButtons();
+
     ~ParticipantItem();
 
 private:
-    QCheckBox *like;
-    QCheckBox *dislike;
+    QRadioButton *like;
+    QRadioButton *dislike;
     QLabel *participantInfo;
 
 signals:

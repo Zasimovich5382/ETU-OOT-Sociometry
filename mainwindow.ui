@@ -139,10 +139,22 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAutorization">
+    <property name="title">
+     <string>Autorization</string>
+    </property>
+    <addaction name="actionLog_out"/>
+   </widget>
+   <addaction name="menuAutorization"/>
   </widget>
   <action name="actionLogin">
    <property name="text">
     <string>Login</string>
+   </property>
+  </action>
+  <action name="actionLog_out">
+   <property name="text">
+    <string>Log out</string>
    </property>
   </action>
  </widget>
