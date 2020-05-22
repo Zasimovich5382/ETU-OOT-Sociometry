@@ -12,8 +12,6 @@ Edge::Edge(Node *sourceNode, Node *destNode, int relType)
     this->relType = relType;
     setAcceptedMouseButtons(0);
 
-
-
     source = sourceNode;
     dest = destNode;
 

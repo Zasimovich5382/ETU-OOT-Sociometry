@@ -12,15 +12,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->writeConclusionBtn->setHidden(true);
     participantsForm = new Participants();
     conclusionForm = new ConclusionForm();
+    graphWidget = new GraphWidget(this);
+    ui->horizontalLayout->addWidget(graphWidget);
+    graph = new ERContainer<std::string>();
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
     connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
         this->conclusion = text; }) ;
 
-    graphWidget = new GraphWidget(this);
-    ui->horizontalLayout->addWidget(graphWidget);
-    graph = new ERContainer<std::string>();
+    connect(participantsForm, &Participants::updateGraph, [=]() {
+        graphWidget->showGraph(graph); }) ;
 }
 
 MainWindow::~MainWindow()
@@ -87,8 +89,11 @@ void MainWindow::on_writeConclusionBtn_clicked()
 void MainWindow::on_actionLog_out_triggered()
 {
     this->close();
+    graphWidget->clear();
+    graph->clear();
+    conclusion = "";
     loginForm->show();
-    connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
+    //connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 }
 
 void MainWindow::saveToJson(const QString& filename)

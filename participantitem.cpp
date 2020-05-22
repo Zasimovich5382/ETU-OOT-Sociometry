@@ -25,15 +25,10 @@ QString ParticipantItem::getParticipantInfo()
 
 int ParticipantItem::getRelationType()
 {
-//    if((this->like->isChecked() && this->dislike->isChecked()) ||
-//       (!this->like->isChecked() && !this->dislike->isChecked())) {
-//        return -1;
-//    }
-      if (this->like->isChecked() && this->dislike->isChecked())
+      if (!this->like->isChecked() && !this->dislike->isChecked())
           return -1;
-//    else {
-        return this->like->isChecked();
-        //    }
+
+      return this->like->isChecked();
 }
 
 void ParticipantItem::setRelationType(bool positive)

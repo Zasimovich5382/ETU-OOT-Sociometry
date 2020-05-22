@@ -39,7 +39,7 @@ void Participants::on_addParticipantBtn_clicked()
     auto * e = graph->find(name.toStdString());
     participantFormAddParticipant(*e);
 
-    // send signal to update graph
+    emit updateGraph();
 }
 
 void Participants::on_saveChoicesBtn_clicked()
@@ -75,6 +75,7 @@ void Participants::on_saveChoicesBtn_clicked()
             graph->addRelation(name, relatedName, (Type)relType);
         }
     }
+    emit updateGraph();
 
 }
 

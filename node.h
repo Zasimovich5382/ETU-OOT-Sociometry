@@ -11,7 +11,7 @@ class GraphWidget;
 class Node : public QGraphicsItem
 {
 public:
-    Node(int id, int gender, GraphWidget *graphWidget, int size=20);
+    Node(int id, int gender, GraphWidget *graphWidget, int size=30);
 
     void addEdge(Edge *edge);
     QList<Edge *> edges() const;

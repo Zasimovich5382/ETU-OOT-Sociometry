@@ -82,6 +82,19 @@ void GraphWidget::itemMoved()
         timerId = startTimer(1000 / 25);
 }
 
+void GraphWidget::clear()
+{
+    scene->clear();
+    id_map.clear();
+
+    if(nodes.size() > 0){
+        foreach (QGraphicsItem *item, scene->items()) {
+            delete item;
+        }
+        nodes.clear();
+    }
+}
+
 void GraphWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {

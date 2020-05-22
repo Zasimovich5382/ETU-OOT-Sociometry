@@ -27,6 +27,7 @@ public:
     void showGraph(ERContainer<std::string>* graph);
 
     void itemMoved();
+    void clear();
 
     std::vector<Node*> getNodes() const;
 

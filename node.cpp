@@ -9,7 +9,7 @@
 Node::Node(int id, int gender, GraphWidget *graphWidget, int size)
     : gender(gender), id(id), nodeSize(size), graph(graphWidget)
 {
-    color = Qt::red;
+    color = Qt::blue;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -91,7 +91,8 @@ bool Node::advance()
 QRectF Node::boundingRect() const
 {
     qreal adjust = 2;
-    return QRectF( -10 - adjust, -10 - adjust, 23 + adjust, 23 + adjust);
+    //return QRectF( -10 - adjust, -10 - adjust, 23 + adjust, 23 + adjust);
+    return QRectF( -nodeSize/2 - adjust, -nodeSize/2  - adjust, nodeSize + adjust, nodeSize + adjust);
 }
 
 QPainterPath Node::shape() const
@@ -112,27 +113,27 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 //    painter->setBrush(Qt::darkGray);
 //    painter->drawEllipse(-7, -7, 20, 20); shadow drawing
 
-//    QRadialGradient gradient(-3, -3, 10);
-//    if (option->state & QStyle::State_Sunken) {
-//        gradient.setCenter(3, 3);
-//        gradient.setFocalPoint(3, 3);
-//        gradient.setColorAt(1, QColor(Qt::yellow).light(120));
-//        gradient.setColorAt(0, QColor(Qt::darkYellow).light(120));
-//    } else {
-//        gradient.setColorAt(0, Qt::yellow);
-//        gradient.setColorAt(1, Qt::darkYellow);
-//    }
-//    painter->setBrush(gradient);
+    QRadialGradient gradient(-3, -3, 10);
+    if (option->state & QStyle::State_Sunken) {
+        gradient.setCenter(3, 3);
+        gradient.setFocalPoint(3, 3);
+        gradient.setColorAt(1, QColor(Qt::blue).light(120));
+        gradient.setColorAt(0, QColor(Qt::darkBlue).light(120));
+    } else {
+        gradient.setColorAt(0, Qt::blue);
+        gradient.setColorAt(1, Qt::darkBlue);
+    }
+    painter->setBrush(gradient);
 
     painter->setPen(Qt::NoPen);
-    painter->setBrush(color);
+    //painter->setBrush(color);
     if(gender == 0){
         painter->drawPolygon(QPolygonF() << QPointF(0, -nodeSize/2) << QPointF(-nodeSize/2, nodeSize/2) << QPointF(nodeSize/2, nodeSize/2));
     } else{
         painter->drawEllipse(-nodeSize/2, -nodeSize/2, nodeSize, nodeSize);
     }
 
-    painter->setPen(QPen(Qt::black, 0));
+    painter->setPen(QPen(Qt::white, 0));
     QString data_repr = QString::number(id);
     if (data_repr.length() == 1)
         painter->drawText(-3, 5, data_repr);
