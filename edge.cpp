@@ -1,7 +1,8 @@
 #include "edge.h"
 #include "node.h"
 
-#include <qmath.h>
+#include <QtMath>
+#include <QDebug>
 #include <QPainter>
 
 Edge::Edge(Node *sourceNode, Node *destNode, int relType)
@@ -10,10 +11,15 @@ Edge::Edge(Node *sourceNode, Node *destNode, int relType)
     color = Qt::black;
     this->relType = relType;
     setAcceptedMouseButtons(0);
+
+
+
     source = sourceNode;
     dest = destNode;
-//    source->addEdge(this);
-//    dest->addEdge(this);
+
+    source->addEdge(this);
+    dest->addEdge(this);
+
     adjust();
 }
 
@@ -76,7 +82,6 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     else {
         painter->setPen(QPen(color, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     }
-
     painter->drawLine(line);
 
     // Draw the arrows
@@ -92,7 +97,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
                                               cos(angle - M_PI + M_PI / 3) * arrowSize);
 
     painter->setBrush(color);
-    //painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+//    painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 
     if(color != Qt::black)

@@ -24,7 +24,7 @@ void LoginForm::on_signIn_clicked()
     }
     else {
         emit on_setRole(USER);
-        //emit on_setRole(ADMIN);
+//        emit on_setRole(ADMIN);
     }
     ui->login->clear();
     ui->password->clear();

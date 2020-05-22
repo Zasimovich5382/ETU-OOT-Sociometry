@@ -7,9 +7,9 @@
 #include <QStyleOption>
 
 Node::Node(int id, int gender, GraphWidget *graphWidget, int size)
-    : gender(gender), data(id), nodeSize(size), graph(graphWidget)
+    : gender(gender), id(id), nodeSize(size), graph(graphWidget)
 {
-    color = Qt::lightGray;
+    color = Qt::red;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -17,16 +17,16 @@ Node::Node(int id, int gender, GraphWidget *graphWidget, int size)
     forces = false;
 }
 
-//void Node::addEdge(Edge *edge)
-//{
-//    edgeList << edge;
-//    edge->adjust();
-//}
+void Node::addEdge(Edge *edge)
+{
+    edgeList << edge;
+    edge->adjust();
+}
 
-//QList<Edge *> Node::edges() const
-//{
-//    return edgeList;
-//}
+QList<Edge *> Node::edges() const
+{
+    return edgeList;
+}
 
 void Node::setGravity(bool flag){
     forces = flag;
@@ -127,10 +127,8 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->setPen(Qt::NoPen);
     painter->setBrush(color);
     if(gender == 0){
-        // get the triangle from edge
-        painter->drawEllipse(-nodeSize/2, -nodeSize/2, nodeSize, nodeSize);
-    }
-    else{
+        painter->drawPolygon(QPolygonF() << QPointF(0, -nodeSize/2) << QPointF(-nodeSize/2, nodeSize/2) << QPointF(nodeSize/2, nodeSize/2));
+    } else{
         painter->drawEllipse(-nodeSize/2, -nodeSize/2, nodeSize, nodeSize);
     }
 
@@ -150,6 +148,7 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
             edge->adjust();
         graph->itemMoved();
         break;
+
     default:
         break;
     };

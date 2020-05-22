@@ -14,9 +14,9 @@
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent), timerId(0)
 {
-    scene = new QGraphicsScene(parent);
+    scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(-300, -300, 600, 600);
+    scene->setSceneRect(-500, -500, 1000, 1000);
     setScene(scene);
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);
@@ -28,7 +28,6 @@ GraphWidget::GraphWidget(QWidget *parent)
 
 GraphWidget::~GraphWidget(){
     scene->clear();
-    graphList.clear();
     if(nodes.size() > 0){
         foreach (QGraphicsItem *item, scene->items()) {
             delete item;
@@ -37,66 +36,45 @@ GraphWidget::~GraphWidget(){
     nodes.clear();
 }
 
-void GraphWidget::showGraph(QList<std::pair<Vertex, QList<std::pair<int, int>>>> _graphList){
+void GraphWidget::showGraph(ERContainer<std::string>* graph){
     scene->clear();
-    scene->addItem(new Node(1, 0, this));
-//    graphList.clear();
-//    if(nodes.size() > 0){
-//        foreach (QGraphicsItem *item, scene->items()) {
-//            delete item;
-//        }
-//        nodes.clear();
-//    }
-//    graphList = _graphList;
-//    int nodes_len = graphList.size();
-//    int d = 150;
-//    int angle = 0;
-//    for(int i = 0; i < nodes_len; i++){
-//        nodes.push_back(new Node(i+1, this));
-//        scene->addItem(nodes[nodes.size() - 1]);
-//        nodes[nodes.size() - 1]->setPos(graphList[i].first.x, graphList[i].first.y);
-//        nodes[nodes.size()-1]->setGravity(false);
-//    }
-//    for(int i = 0; i < nodes_len; i++){
-//        for(int j = 0; j < graphList[i].second.length(); j++){
-//            if(graphList[i].second[0].first != -1)
-//                scene->addItem(new Edge(nodes[graphList[i].first.id], nodes[graphList[i].second[j].first],
-//                                        graphList[i].second[j].second, true));
-//        }
-//    }
-}
+    id_map.clear();
 
-void GraphWidget::refresh(){
-    for(auto& el : nodes){
-        el->setColor(Qt::lightGray);
+    if(nodes.size() > 0){
+        foreach (QGraphicsItem *item, scene->items()) {
+            delete item;
+        }
+        nodes.clear();
     }
-}
+    int nodes_len = graph->size();
+    int radius = 150;
+    int angle = 0;
 
-QList<std::pair<Vertex, QList<std::pair<int, int>>>> GraphWidget::getGraphList() const{
-    return graphList;
+    float angle_step = (2*M_PI)/nodes_len;
+    for(auto& e : *graph){
+        nodes.push_back(new Node(e.getId(), e.getGender(), this));
+        scene->addItem(nodes[nodes.size() - 1]);
+
+        id_map.insert(e.getId(), nodes[nodes.size() - 1]);
+
+        nodes[nodes.size()-1]->setPos(radius*cosf(angle), radius*sinf(angle));
+        nodes[nodes.size()-1]->setGravity(false);
+
+        angle += angle_step;
+    }
+
+    for(auto& e : *graph){
+        for(auto& r: e.getRelations()){
+            int first_id = r.getFirstEntity()->getId();
+            int second_id = r.getSecondEntity()->getId();
+            scene->addItem(new Edge(id_map[first_id], id_map[second_id], r.getType()));
+        }
+    }
 }
 
 std::vector<Node*> GraphWidget::getNodes() const{
     return nodes;
 }
-
-
-void GraphWidget::setEdge(int s, int t, QColor _color, int w){
-//    QList<Edge*> edges;
-//    foreach (QGraphicsItem *item, scene->items()) {
-//        if (Edge *edge = qgraphicsitem_cast<Edge*>(item))
-//            edges << edge;
-//    }
-//    for(auto& edge: edges){
-//        if((edge->source->data-1 == s) && (edge->dest->data-1 == t)){
-//            edge->color = _color;
-//            edge->weight = w;
-//            edge->update();
-//            break;
-//        }
-//    }
-}
-
 
 void GraphWidget::itemMoved()
 {
@@ -151,6 +129,12 @@ void GraphWidget::wheelEvent(QWheelEvent *event)
     scaleView(pow((double)2, -event->delta() / 240.0));
 }
 
+void GraphWidget::resizeEvent(QResizeEvent *event)
+{
+    QGraphicsView::resizeEvent(event);
+    this->centerOn(0, 0);
+}
+
 void GraphWidget::scaleView(qreal scaleFactor)
 {
     qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
@@ -167,7 +151,7 @@ void GraphWidget::zoomIn()
 
 void GraphWidget::zoomOut()
 {
-    scaleView(1 / qreal(1.2));
+    scaleView(1 / qreal(1.2f));
 }
 
 void GraphWidget::changeGravity(){

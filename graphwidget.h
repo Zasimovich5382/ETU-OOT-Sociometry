@@ -9,24 +9,10 @@
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
 #include <QGraphicsEllipseItem>
-#include <cmath>
-#include <queue>
-#include <fstream>
-#include <sstream>
+#include <QtMath>
+#include <algorithm>
 
-typedef std::map<char,std::map<char, int>> Graph;
-
-struct Compare{
-    bool operator()(const std::pair<int, int>& p1, const std::pair<int, int>& p2){
-        return p1.second < p2.second;
-    }
-};
-
-struct Vertex{
-    int id;
-    int x;
-    int y;
-};
+#include "ercontainer.h"
 
 class Node;
 class GraphWidget : public QGraphicsView
@@ -38,17 +24,11 @@ public:
 
     ~GraphWidget();
 
-    void showGraph(QList<std::pair<Vertex, QList<std::pair<int, int>>>> graphList);
+    void showGraph(ERContainer<std::string>* graph);
 
     void itemMoved();
 
-    QList<std::pair<Vertex, QList<std::pair<int, int>>>> getGraphList() const;
-
     std::vector<Node*> getNodes() const;
-
-    void refresh();
-
-    void setEdge(int s, int t, QColor _color, int w);
 
 public slots:
     //void shuffle();
@@ -60,6 +40,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
     void timerEvent(QTimerEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
     void scaleView(qreal scaleFactor);
 
@@ -67,6 +48,6 @@ private:
     int timerId;
     QGraphicsScene *scene;
     std::vector<Node*> nodes;
-    QList<std::pair<Vertex, QList<std::pair<int, int>>>> graphList;
+    QMap<int, Node*> id_map;
 };
 #endif // GRAPHWIDGET_H

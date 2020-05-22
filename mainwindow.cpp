@@ -15,18 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
-    //new qt syntax, wow, used lambad because slot = one line setter
     connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
         this->conclusion = text; }) ;
-    scene = new GraphWidget(ui->graphicsView);
-    graph = new ERContainer<std::string>();
-//    graph->addEntity("Lesha", MALE);
-//    graph->addEntity("Olya", FEMALE);
-//    graph->addEntity("Masha", FEMALE);
-//    graph->addRelation("Masha", "Olya", POSITIVE);
-//    graph->addRelation("Olya", "Masha", POSITIVE);
 
-//    saveToJson("test.json");
+    graphWidget = new GraphWidget(this);
+    ui->horizontalLayout->addWidget(graphWidget);
+    graph = new ERContainer<std::string>();
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +59,7 @@ void MainWindow::on_loadPreviousStateBtn_clicked()
     qDebug() << filename;
     if (filename.isEmpty()) return;
     loadFromJson(filename);
+    graphWidget->showGraph(graph);
 }
 
 void MainWindow::on_saveCurrentStateBtn_clicked()

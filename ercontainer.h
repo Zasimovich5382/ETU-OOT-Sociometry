@@ -31,6 +31,8 @@ public:
 
     SocialEntity<T>* find(const T& name);
 
+    size_t size() const;
+
     bool addEntity(SocialEntity<T> entity);
     bool addEntity(const T& name, Gender gender);
     bool addRelation(const T& first, const T& second, Type type);
@@ -65,6 +67,12 @@ SocialEntity<T>* ERContainer<T>::find(const T& name)
         if ((*it).getName() == name) return &(*it);
     }
     return nullptr;
+}
+
+template<class T>
+size_t ERContainer<T>::size() const
+{
+    return entities.size();
 }
 
 template<class T>

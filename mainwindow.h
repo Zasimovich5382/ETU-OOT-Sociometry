@@ -51,7 +51,7 @@ private:
     LoginForm *loginForm;
     Participants *participantsForm;
     ConclusionForm *conclusionForm;
-    GraphWidget *scene;
+    GraphWidget *graphWidget;
     QString conclusion;
 
     ERContainer<std::string> *graph;

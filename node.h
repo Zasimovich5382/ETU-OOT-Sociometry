@@ -16,8 +16,8 @@ public:
     void addEdge(Edge *edge);
     QList<Edge *> edges() const;
 
-//    enum { Type = UserType + 1 };
-//    int type() const override { return Type; }
+    enum { Type = UserType + 1 };
+    int type() const override { return Type; }
 
     void calculateForces();
     bool advance();
@@ -29,7 +29,6 @@ public:
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    int data = 0;
     bool forces;
 
 protected:
@@ -42,8 +41,10 @@ private:
     int nodeSize;
     int gender; // 0 - male, 1 - female
     int id;
+
     QColor color;
     QList<Edge *> edgeList;
+
     QPointF newPos;
     GraphWidget *graph;
 };
