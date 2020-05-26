@@ -10,9 +10,8 @@ public:
    Exception(const QString& msg) : msg (msg) {printError();}
   ~Exception( ) {}
    QString getMessage( ) const {return(msg);}
-   void printError() {
-       std::cout << getMessage().toStdString() << std::endl;
-   }
+   void printError() {std::cout << getMessage().toStdString() << std::endl;}
+
 private:
    QString msg;
 };
@@ -21,6 +20,7 @@ private:
 class FileNotOpenedException: public Exception {
 private:
    std::string file_name;
+
 public:
     FileNotOpenedException(QString file_name): Exception("File is not opened:" + file_name) {}
 };
@@ -28,6 +28,7 @@ public:
 class WrongFileDataException: public Exception {
 private:
    std::string file_name;
+
 public:
     WrongFileDataException(QString file_name): Exception("File " + file_name + " has unparsable data") {}
 };

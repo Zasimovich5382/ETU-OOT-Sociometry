@@ -2,7 +2,6 @@
 #define PARTICIPANTS_H
 
 #include <QWidget>
-#include <QCloseEvent>
 #include <QListWidgetItem>
 
 #include "participantitem.h"
@@ -18,7 +17,7 @@ class Participants : public QWidget
 
 public:
     explicit Participants(QWidget *parent = 0);
-    void closeEvent (QCloseEvent *event);
+
     void setGraph(ERContainer<std::string> *graph);
     void initParticipantsList();
     ~Participants();

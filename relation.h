@@ -19,9 +19,6 @@ public:
     SocialEntity<T>* getFirstEntity();
     SocialEntity<T>* getSecondEntity();
 
-//    void setFirstEntity(Entity* entity);
-//    void setSecondEntity(Entity* entity);
-
     void setDescription(const std::string& descr);
     std::string getDescription() const;
 

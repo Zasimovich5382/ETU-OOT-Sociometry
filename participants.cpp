@@ -16,11 +16,6 @@ Participants::~Participants()
     delete ui;
 }
 
-void Participants::closeEvent (QCloseEvent *event)
-{
-    // on close update the graph
-}
-
 void Participants::setGraph(ERContainer<std::string> *graph)
 {
     this->graph = graph;

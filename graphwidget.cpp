@@ -59,19 +59,17 @@ void GraphWidget::showGraph(ERContainer<std::string>* graph){
 
     float angle = 0;
     float angle_step = (2*M_PI)/nodes_len;
-//    qDebug() << max_rating;
 
-    //all intrvals are [x, y)
+    // All intrvals are [x, y)
     rating_lvls << qMakePair(max_rating, max_rating+1) //stars
                 << qMakePair(border, max_rating) // wanted
                 << qMakePair(1, border) // ignored
                 << qMakePair(0, 1); // isolated
-//    qDebug() << rating_lvls;
+
     for(auto& e : *graph){
-        //find index of intervals
-        //interval indexes are the same as ratings indexes
+        // Find index of intervals - interval indexes are the same as ratings indexes
         int index = rating_lvls.size()-1;
-//        qDebug() << "id" << e.getId() << "Rating" << e.getRating();
+
         for (int i = 0; i < rating_lvls.size(); i++){
             int rating = e.getRating();
             if (rating >= rating_lvls[i].first && rating < rating_lvls[i].second){

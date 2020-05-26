@@ -21,10 +21,8 @@ public:
     SocialEntity(const T& name, int age, Gender gender);
 
     void addRelation(Relation<T> relation);
-    // void addRelation(SocialEntity<T>* other, Type type);
     void removeRelation(const T& name);
     Relation<T>* getRelationWith(const T& name);
-//    virtual void removeAllRelations() = 0;
 
     bool isRelatedTo(const T& name);
 
@@ -47,7 +45,6 @@ public:
 
 private:
     int rating;
-
     int id;
     T name;
     Gender gender;

@@ -12,8 +12,8 @@ template <class T>
 class ERContainer
 {
     using entities_type = std::list<SocialEntity<T>>;
+
 public:
-    // using iterator = EntityIterator<T>;
     using iterator = typename entities_type::iterator;
     using entity = SocialEntity<T>;
     using relation = Relation<T> ;
@@ -21,9 +21,6 @@ public:
     ERContainer();
     ERContainer(std::initializer_list<SocialEntity<T>> values);
     ~ERContainer();
-
-    // iterator begin() { return iterator(entities.data()); };
-    // iterator end() { return iterator(entities.data() + entities.size()); };
 
     iterator begin() { return entities.begin(); }
     iterator end() { return entities.end(); }

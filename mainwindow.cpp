@@ -58,7 +58,6 @@ void MainWindow::on_updateParticipantsBtn_clicked()
 
 void MainWindow::on_loadPreviousStateBtn_clicked()
 {
-    // load the previous conteiner state and show it
     QString filename = QFileDialog::getOpenFileName(nullptr, "Load graph from json", "", "Json (*.json)");
     if (filename.isEmpty()) return;
     loadFromJson(filename);
@@ -81,7 +80,6 @@ void MainWindow::on_showResearchResultBtn_clicked()
 
 void MainWindow::on_writeConclusionBtn_clicked()
 {
-    // open text window and show written by admin conclusion for this graph
     conclusionForm->loadTextInAdminMode(true);
     conclusionForm->setText(conclusion);
     conclusionForm->show();
@@ -94,7 +92,6 @@ void MainWindow::on_actionLog_out_triggered()
     graph->clear();
     conclusion = "";
     loginForm->show();
-    //connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 }
 
 void MainWindow::saveToJson(const QString& filename)
@@ -132,7 +129,6 @@ void MainWindow::saveToJson(const QString& filename)
 void MainWindow::loadFromJson(const QString& filename)
 {
     graph->clear();
-    //clear graphics widget
 
     QFile file(filename);
     if(!file.open(QFile::ReadOnly))

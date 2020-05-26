@@ -8,7 +8,6 @@
 template<class T>
 class Relation;
 
-//interface
 template<class T>
 class Entity{
 public:
