@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QListWidgetItem>
 
 #include "participantitem.h"

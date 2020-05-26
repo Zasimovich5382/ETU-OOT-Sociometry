@@ -1,8 +1,7 @@
 #ifndef ER_CONTAINER_H
 #define ER_CONTAINER_H
-#include <iostream>
+
 #include <list>
-#include <algorithm>
 
 #include "iterator.h"
 #include "socialentity.h"

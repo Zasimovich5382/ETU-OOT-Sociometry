@@ -1,10 +1,11 @@
 #ifndef SOCIALENTITY_H
 #define SOCIALENTITY_H
 
+#include <list>
+
 #include "entity.h"
 #include "relation.h"
 #include "allocator.h"
-#include <list>
 
 enum Gender {
     MALE,

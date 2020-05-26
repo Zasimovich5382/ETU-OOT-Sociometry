@@ -2,8 +2,8 @@
 #define ITERATOR_H
 
 #include <string>
-#include <iostream>
 #include <list>
+
 #include "socialentity.h"
 
 

@@ -5,7 +5,6 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QGraphicsSceneMouseEvent>
-//#include <vector>
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
 #include <QGraphicsEllipseItem>

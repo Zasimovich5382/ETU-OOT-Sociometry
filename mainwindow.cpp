@@ -60,7 +60,6 @@ void MainWindow::on_loadPreviousStateBtn_clicked()
 {
     // load the previous conteiner state and show it
     QString filename = QFileDialog::getOpenFileName(nullptr, "Load graph from json", "", "Json (*.json)");
-    qDebug() << filename;
     if (filename.isEmpty()) return;
     loadFromJson(filename);
     graphWidget->showGraph(graph);
