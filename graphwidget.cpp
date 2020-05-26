@@ -57,7 +57,7 @@ void GraphWidget::showGraph(ERContainer<std::string>* graph){
     QVector<QPair<int, int>> rating_lvls;
     int border = max_rating * 0.5f;
 
-    int angle = 0;
+    float angle = 0;
     float angle_step = (2*M_PI)/nodes_len;
 //    qDebug() << max_rating;
 
