@@ -49,7 +49,8 @@ HEADERS += \
         node.h \
         edge.h \
         graphwidget.h \
-    allocator.h
+    allocator.h \
+    exceptions.h
 
 
 FORMS += \
