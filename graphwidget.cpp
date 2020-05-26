@@ -24,6 +24,9 @@ GraphWidget::GraphWidget(QWidget *parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(1.2), qreal(1.2));
     setMinimumSize(400, 400);
+    levels << 60 << 120 << 180 << 240;
+
+    drawLevels();
 }
 
 GraphWidget::~GraphWidget(){
@@ -37,33 +40,49 @@ GraphWidget::~GraphWidget(){
 }
 
 void GraphWidget::showGraph(ERContainer<std::string>* graph){
-    scene->clear();
-    id_map.clear();
+    clear();
+    drawLevels();
 
-    if(nodes.size() > 0){
-        foreach (QGraphicsItem *item, scene->items()) {
-            delete item;
-        }
-        nodes.clear();
-    }
     int nodes_len = graph->size();
-    int radius = 150;
-    int angle = 0;
+    int max_rating = 0;
 
-    float angle_step = (2*M_PI)/nodes_len;
     for(auto& e : *graph){
+        if(e.getRating() > max_rating) max_rating = e.getRating();
         nodes.push_back(new Node(e.getId(), e.getGender(), this));
         scene->addItem(nodes[nodes.size() - 1]);
-
         id_map.insert(e.getId(), nodes[nodes.size() - 1]);
-
-        nodes[nodes.size()-1]->setPos(radius*cosf(angle), radius*sinf(angle));
         nodes[nodes.size()-1]->setGravity(false);
-
-        angle += angle_step;
     }
 
+    QVector<QPair<int, int>> rating_lvls;
+    int border = max_rating * 0.5f;
+
+    float angle = 0;
+    float angle_step = (2*M_PI)/nodes_len;
+//    qDebug() << max_rating;
+
+    //all intrvals are [x, y)
+    rating_lvls << qMakePair(max_rating, max_rating+1) //stars
+                << qMakePair(border, max_rating) // wanted
+                << qMakePair(1, border) // ignored
+                << qMakePair(0, 1); // isolated
+//    qDebug() << rating_lvls;
     for(auto& e : *graph){
+        //find index of intervals
+        //interval indexes are the same as ratings indexes
+        int index = rating_lvls.size()-1;
+//        qDebug() << "id" << e.getId() << "Rating" << e.getRating();
+        for (int i = 0; i < rating_lvls.size(); i++){
+            int rating = e.getRating();
+            if (rating >= rating_lvls[i].first && rating < rating_lvls[i].second){
+                index = i;
+                break;
+            }
+        }
+
+        id_map[e.getId()]->setPos((levels[index]-30)*cosf(angle), (levels[index]-30)*sinf(angle));
+        angle += angle_step;
+
         for(auto& r: e.getRelations()){
             int first_id = r.getFirstEntity()->getId();
             int second_id = r.getSecondEntity()->getId();
@@ -72,7 +91,15 @@ void GraphWidget::showGraph(ERContainer<std::string>* graph){
     }
 }
 
-std::vector<Node*> GraphWidget::getNodes() const{
+void GraphWidget::drawLevels()
+{
+    int off = 0;
+    for(int lvl_rad: levels){
+        scene->addEllipse(-lvl_rad - off, -lvl_rad - off, 2*(lvl_rad+off), 2*(lvl_rad+off), QPen(Qt::black), QBrush(Qt::NoBrush));
+    }
+}
+
+QVector<Node*> GraphWidget::getNodes() const{
     return nodes;
 }
 

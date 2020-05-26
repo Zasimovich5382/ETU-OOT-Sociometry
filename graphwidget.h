@@ -5,7 +5,7 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QGraphicsSceneMouseEvent>
-#include <vector>
+//#include <vector>
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
 #include <QGraphicsEllipseItem>
@@ -25,11 +25,12 @@ public:
     ~GraphWidget();
 
     void showGraph(ERContainer<std::string>* graph);
+    void drawLevels();
 
     void itemMoved();
     void clear();
 
-    std::vector<Node*> getNodes() const;
+    QVector<Node*> getNodes() const;
 
 public slots:
     //void shuffle();
@@ -48,7 +49,8 @@ protected:
 private:
     int timerId;
     QGraphicsScene *scene;
-    std::vector<Node*> nodes;
+    QVector<Node*> nodes;
+    QVector<int> levels;
     QMap<int, Node*> id_map;
 };
 #endif // GRAPHWIDGET_H

@@ -74,8 +74,16 @@ std::string Relation<T>::getDescription() const
 }
 
 template<class T>
-void Relation<T>::setType(Type type) {
-    this->type = type;
+void Relation<T>::setType(Type new_type) {
+    if (this->type == new_type) return;
+
+    this->type = new_type;
+    if(this->type == POSITIVE){
+        secondEntity->setRating(secondEntity->getRating() + 1);
+    } else {
+        int new_rating = secondEntity->getRating() - 1;
+        secondEntity->setRating(new_rating > 0 ? new_rating : 0);
+    }
 }
 
 template<class T>
