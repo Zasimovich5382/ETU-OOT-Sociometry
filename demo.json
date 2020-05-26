@@ -1,5 +1,5 @@
 {
-    "conclusion": "tets",
+    "conclusion": "",
     "entities": [
         {
             "age": -1,
@@ -9,28 +9,40 @@
         },
         {
             "age": -1,
-            "gender": 0,
+            "gender": 1,
             "id": 2,
-            "name": "test1"
+            "name": "test2"
         },
         {
             "age": -1,
             "gender": 0,
             "id": 3,
-            "name": "test2"
+            "name": "test3"
         },
         {
             "age": -1,
             "gender": 1,
             "id": 4,
-            "name": "test3"
+            "name": "test4"
+        },
+        {
+            "age": -1,
+            "gender": 0,
+            "id": 5,
+            "name": "test5"
+        },
+        {
+            "age": -1,
+            "gender": 0,
+            "id": 6,
+            "name": "test6"
         }
     ],
     "relations": [
         {
             "description": "",
             "from": "test",
-            "to": "test1",
+            "to": "test3",
             "type": 1
         },
         {
@@ -42,8 +54,56 @@
         {
             "description": "",
             "from": "test",
+            "to": "test6",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test2",
             "to": "test3",
             "type": 1
+        },
+        {
+            "description": "",
+            "from": "test2",
+            "to": "test5",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test2",
+            "to": "test6",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test4",
+            "to": "test5",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test4",
+            "to": "test3",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test4",
+            "to": "test6",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test5",
+            "to": "test6",
+            "type": 1
+        },
+        {
+            "description": "",
+            "from": "test5",
+            "to": "test",
+            "type": 0
         }
     ]
 }

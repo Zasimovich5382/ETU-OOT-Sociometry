@@ -31,15 +31,22 @@ public:
     const T& getName();
     std::list<Relation<T>, Alloc::Allocator <Relation<T>>>& getRelations();
     bool operator==(const SocialEntity<T>& other);
-    Gender getGender();
-    int getAge();
+
     void setGender(Gender gender);
+    Gender getGender();
+
     void setAge(int age);
+    int getAge();
+
+    void setRating(int new_rating);
+    int getRating();
 
     int getId() const;
     int setId(int new_id);
 
 private:
+    int rating;
+
     int id;
     T name;
     Gender gender;
@@ -52,6 +59,7 @@ SocialEntity<T>::SocialEntity():
     name(""),
     gender(DEFAULT),
     age(-1),
+    rating(0),
     id(++Entity<T>::id_counter)
 {}
 
@@ -60,6 +68,7 @@ SocialEntity<T>::SocialEntity(const T& name, Gender gender):
     name(name),
     gender(gender),
     age(-1),
+    rating(0),
     id(++Entity<T>::id_counter)
 {}
 
@@ -81,6 +90,10 @@ bool SocialEntity<T>::operator==(const SocialEntity<T> &other)
 template<class T>
 void SocialEntity<T>::addRelation(Relation<T> relation) {
     if (!isRelatedTo(relation.getSecondEntity()->getName())){
+        if (relation.getType() == POSITIVE){
+            SocialEntity<T>* to = relation.getSecondEntity();
+            to->setRating(to->getRating() + 1);
+        }
         relations.push_back(relation);
     }
 }
@@ -136,6 +149,18 @@ Gender SocialEntity<T>::getGender() {
 template<class T>
 int SocialEntity<T>::getAge() {
     return this->age;
+}
+
+template<class T>
+void SocialEntity<T>::setRating(int new_rating)
+{
+    this->rating = new_rating;
+}
+
+template<class T>
+int SocialEntity<T>::getRating()
+{
+    return this->rating;
 }
 
 template<class T>

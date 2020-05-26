@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(participantsForm, &Participants::updateGraph, [=]() {
         graphWidget->showGraph(graph); }) ;
+
+    resize(1000, 640);
 }
 
 MainWindow::~MainWindow()
