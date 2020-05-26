@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "relation.h"
+#include "allocator.h"
 #include <list>
 
 enum Gender {
@@ -28,8 +29,7 @@ public:
 
     void setName(const T& name);
     const T& getName();
-
-    std::list<Relation<T>>& getRelations();
+    std::list<Relation<T>, Alloc::Allocator <Relation<T>>>& getRelations();
     bool operator==(const SocialEntity<T>& other);
     Gender getGender();
     int getAge();
@@ -44,7 +44,7 @@ private:
     T name;
     Gender gender;
     int age;
-    std::list<Relation<T>> relations;
+    std::list<Relation<T>, Alloc::Allocator <Relation<T>>> relations;
 };
 
 template<class T>
@@ -124,7 +124,7 @@ Relation<T>* SocialEntity<T>::getRelationWith(const T& name) {
 }
 
 template<class T>
-std::list<Relation<T>>& SocialEntity<T>::getRelations(){
+std::list<Relation<T>, Alloc::Allocator <Relation<T>>>& SocialEntity<T>::getRelations(){
     return this->relations;
 }
 

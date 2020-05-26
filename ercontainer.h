@@ -1,13 +1,13 @@
 #ifndef ER_CONTAINER_H
 #define ER_CONTAINER_H
 #include <iostream>
-#include <vector>
+#include <list>
 #include <algorithm>
 
 #include "iterator.h"
 #include "socialentity.h"
 #include "relation.h"
-#include <list>
+#include "allocator.h"
 
 template <class T>
 class ERContainer
@@ -26,8 +26,8 @@ public:
     // iterator begin() { return iterator(entities.data()); };
     // iterator end() { return iterator(entities.data() + entities.size()); };
 
-    iterator begin() { return entities.begin(); };
-    iterator end() { return entities.end(); };
+    iterator begin() { return entities.begin(); }
+    iterator end() { return entities.end(); }
 
     SocialEntity<T>* find(const T& name);
 
@@ -45,7 +45,7 @@ public:
     void clear();
 
 private:
-    std::list<SocialEntity<T>> entities;
+    std::list<SocialEntity<T>, Alloc::Allocator<SocialEntity<T>>> entities;
 };
 
 template<class T>

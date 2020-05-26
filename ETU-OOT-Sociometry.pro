@@ -48,7 +48,8 @@ HEADERS += \
         conclusionform.h \
         node.h \
         edge.h \
-        graphwidget.h
+        graphwidget.h \
+    allocator.h
 
 
 FORMS += \

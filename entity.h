@@ -4,6 +4,8 @@
 #include <iostream>
 #include <list>
 
+#include "allocator.h"
+
 template<class T>
 class Relation;
 
@@ -16,7 +18,7 @@ public:
     virtual bool isRelatedTo(const T& name) = 0;
     virtual void setName(const T& name) = 0;
     virtual const T& getName() = 0;
-    virtual std::list<Relation<T>>& getRelations() = 0;
+    virtual std::list<Relation<T>, Alloc::Allocator <Relation<T>>>& getRelations() = 0;
 protected:
      static int id_counter;
 };
