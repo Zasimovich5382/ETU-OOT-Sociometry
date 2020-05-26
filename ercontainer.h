@@ -83,14 +83,14 @@ bool ERContainer<T>::addEntity(SocialEntity<T> entity)
 }
 
 template<class T>
-bool ERContainer<T>::addEntity(const T &name, Gender gender)
+bool ERContainer<T>::addEntity(const T& name, Gender gender)
 {
     SocialEntity<T> e = SocialEntity<T>(name, gender);
     return addEntity(e);
 }
 
 template<class T>
-bool ERContainer<T>::addRelation(const T &first, const T &second, Type type)
+bool ERContainer<T>::addRelation(const T& first, const T& second, Type type)
 {
 
     SocialEntity<T>* firstEntity = find(first);
@@ -133,7 +133,7 @@ void ERContainer<T>::removeRelation(const T& first, const T& second)
 }
 
 template<class T>
-void ERContainer<T>::editRelation(const T &first, const T &second, Type newType)
+void ERContainer<T>::editRelation(const T& first, const T& second, Type newType)
 {
     SocialEntity<T>* firstEntity = find(first);
     if (!firstEntity) return;
