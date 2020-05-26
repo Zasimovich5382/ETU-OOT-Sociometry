@@ -134,7 +134,8 @@ void MainWindow::loadFromJson(const QString& filename)
     //clear graphics widget
 
     QFile file(filename);
-    if(!file.open(QFile::ReadOnly)) return;
+    if(!file.open(QFile::ReadOnly))
+        throw FileNotOpenedException(filename);
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
     QJsonObject graph_repr = document.object();
 
@@ -152,7 +153,9 @@ void MainWindow::loadFromJson(const QString& filename)
         SocialEntity<std::string> entity(name.toStdString(), (Gender)gender);
         entity.setAge(age);
         entity.setId(id);
-        graph->addEntity(entity);
+        if(!graph->addEntity(entity))
+            throw WrongFileDataException(filename);
+
     }
 
     for(auto value: relations_repr){
@@ -162,7 +165,9 @@ void MainWindow::loadFromJson(const QString& filename)
         QString descr = relation_repr["description"].toString();
         int type = relation_repr["type"].toInt();
 
-        graph->addRelation(from.toStdString(), to.toStdString(), (Type)type);
+        if(!graph->addRelation(from.toStdString(), to.toStdString(), (Type)type))
+            throw WrongFileDataException(filename);
+
         Relation<std::string>* r;
         SocialEntity<std::string>* e = graph->find(from.toStdString());
         if (e && (r = e->getRelationWith(to.toStdString()))) {

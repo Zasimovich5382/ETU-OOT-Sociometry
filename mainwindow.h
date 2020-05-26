@@ -15,6 +15,7 @@
 #include "ercontainer.h"
 #include "conclusionform.h"
 #include "graphwidget.h"
+#include "exceptions.h"
 
 namespace Ui {
 class MainWindow;
