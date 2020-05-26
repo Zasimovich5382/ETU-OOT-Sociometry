@@ -18,9 +18,9 @@ public:
     virtual const T& getName() = 0;
     virtual std::list<Relation<T>, Alloc::Allocator <Relation<T>>>& getRelations() = 0;
 protected:
-     static int id_counter;
+     static int idCounter;
 };
 
 template<class T>
-int Entity<T>::id_counter = 0;
+int Entity<T>::idCounter = 0;
 #endif // ENTITY_H

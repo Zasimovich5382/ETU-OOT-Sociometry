@@ -58,7 +58,7 @@ SocialEntity<T>::SocialEntity():
     gender(DEFAULT),
     age(-1),
     rating(0),
-    id(++Entity<T>::id_counter)
+    id(++Entity<T>::idCounter)
 {}
 
 template<class T>
@@ -67,7 +67,7 @@ SocialEntity<T>::SocialEntity(const T& name, Gender gender):
     gender(gender),
     age(-1),
     rating(0),
-    id(++Entity<T>::id_counter)
+    id(++Entity<T>::idCounter)
 {}
 
 template<class T>
@@ -150,9 +150,9 @@ int SocialEntity<T>::getAge() {
 }
 
 template<class T>
-void SocialEntity<T>::setRating(int new_rating)
+void SocialEntity<T>::setRating(int newRating)
 {
-    this->rating = new_rating;
+    this->rating = newRating;
 }
 
 template<class T>
@@ -178,10 +178,10 @@ int SocialEntity<T>::getId() const
 }
 
 template<class T>
-void SocialEntity<T>::setId(int new_id)
+void SocialEntity<T>::setId(int newId)
 {
-    this->id = new_id;
-    Entity<T>::id_counter = new_id;
+    this->id = newId;
+    Entity<T>::idCounter = newId;
 }
 
 #endif // SOCIALENTITY_H

@@ -11,10 +11,10 @@
 template <class T>
 class ERContainer
 {
-    using entities_type = std::list<SocialEntity<T>>;
+    using entitiesType = std::list<SocialEntity<T>>;
 
 public:
-    using iterator = typename entities_type::iterator;
+    using iterator = typename entitiesType::iterator;
     using entity = SocialEntity<T>;
     using relation = Relation<T> ;
 
@@ -36,7 +36,7 @@ public:
     void removeEntity(const T& name);
     void removeRelation(const T& first, const T& second);
 
-    void editRelation(const T& first, const T& second, Type new_type);
+    void editRelation(const T& first, const T& second, Type newType);
 
     void clear();
 
@@ -133,13 +133,13 @@ void ERContainer<T>::removeRelation(const T& first, const T& second)
 }
 
 template<class T>
-void ERContainer<T>::editRelation(const T &first, const T &second, Type new_type)
+void ERContainer<T>::editRelation(const T &first, const T &second, Type newType)
 {
     SocialEntity<T>* firstEntity = find(first);
     if (!firstEntity) return;
 
     Relation<T>* r = firstEntity->getRelationWith(second);
-    if (r) r->setType(new_type);
+    if (r) r->setType(newType);
 }
 
 template<class T>

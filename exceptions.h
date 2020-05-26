@@ -19,18 +19,18 @@ private:
 
 class FileNotOpenedException: public Exception {
 private:
-   std::string file_name;
+   std::string fileName;
 
 public:
-    FileNotOpenedException(QString file_name): Exception("File is not opened:" + file_name) {}
+    FileNotOpenedException(QString fileName): Exception("File is not opened:" + fileName) {}
 };
 
 class WrongFileDataException: public Exception {
 private:
-   std::string file_name;
+   std::string fileName;
 
 public:
-    WrongFileDataException(QString file_name): Exception("File " + file_name + " has unparsable data") {}
+    WrongFileDataException(QString fileName): Exception("File " + fileName + " has unparsable data") {}
 };
 
 

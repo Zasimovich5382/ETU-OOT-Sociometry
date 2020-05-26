@@ -98,30 +98,30 @@ void MainWindow::saveToJson(const QString& filename)
 {
     QFile file(filename);
     if(!file.open(QFile::WriteOnly)) return;
-    QJsonObject graph_repr;
-    QJsonArray entities_repr;
-    QJsonArray relations_repr;
+    QJsonObject graphRepr;
+    QJsonArray entitiesRepr;
+    QJsonArray relationsRepr;
     for(auto& entity: *graph){
-        QJsonObject entity_repr;
+        QJsonObject entityRepr;
         //QVariant has constuctor that use const char*, which is given by data() method
-        entity_repr.insert("id", QJsonValue::fromVariant(entity.getId()));
-        entity_repr.insert("name", QJsonValue::fromVariant(entity.getName().data()));
-        entity_repr.insert("age", QJsonValue::fromVariant(entity.getAge()));
-        entity_repr.insert("gender", QJsonValue::fromVariant(entity.getGender()));
-        entities_repr.push_back(entity_repr);
+        entityRepr.insert("id", QJsonValue::fromVariant(entity.getId()));
+        entityRepr.insert("name", QJsonValue::fromVariant(entity.getName().data()));
+        entityRepr.insert("age", QJsonValue::fromVariant(entity.getAge()));
+        entityRepr.insert("gender", QJsonValue::fromVariant(entity.getGender()));
+        entitiesRepr.push_back(entityRepr);
         for(auto& relation: entity.getRelations()){
-            QJsonObject relation_repr;
-            relation_repr.insert("from", QJsonValue::fromVariant(relation.getFirstEntity()->getName().data()));
-            relation_repr.insert("to", QJsonValue::fromVariant(relation.getSecondEntity()->getName().data()));
-            relation_repr.insert("type", QJsonValue::fromVariant(relation.getType()));
-            relation_repr.insert("description", QJsonValue::fromVariant(relation.getDescription().data()));
-            relations_repr.push_back(relation_repr);
+            QJsonObject relationRepr;
+            relationRepr.insert("from", QJsonValue::fromVariant(relation.getFirstEntity()->getName().data()));
+            relationRepr.insert("to", QJsonValue::fromVariant(relation.getSecondEntity()->getName().data()));
+            relationRepr.insert("type", QJsonValue::fromVariant(relation.getType()));
+            relationRepr.insert("description", QJsonValue::fromVariant(relation.getDescription().data()));
+            relationsRepr.push_back(relationRepr);
         }
     }
-    graph_repr.insert("conclusion", QJsonValue::fromVariant(conclusion));
-    graph_repr.insert("entities", entities_repr);
-    graph_repr.insert("relations", relations_repr);
-    QJsonDocument document(graph_repr);
+    graphRepr.insert("conclusion", QJsonValue::fromVariant(conclusion));
+    graphRepr.insert("entities", entitiesRepr);
+    graphRepr.insert("relations", relationsRepr);
+    QJsonDocument document(graphRepr);
     file.write(document.toJson());
     file.close();
 }
@@ -134,18 +134,18 @@ void MainWindow::loadFromJson(const QString& filename)
     if(!file.open(QFile::ReadOnly))
         throw FileNotOpenedException(filename);
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
-    QJsonObject graph_repr = document.object();
+    QJsonObject graphRepr = document.object();
 
-    conclusion = graph_repr["conclusion"].toString();
-    QJsonArray entities_repr = graph_repr["entities"].toArray();
-    QJsonArray relations_repr = graph_repr["relations"].toArray();
+    conclusion = graphRepr["conclusion"].toString();
+    QJsonArray entitiesRepr = graphRepr["entities"].toArray();
+    QJsonArray relationsRepr = graphRepr["relations"].toArray();
 
-    for(auto value: entities_repr){
-        QJsonObject entity_repr = value.toObject();
-        QString name = entity_repr["name"].toString();
-        int age = entity_repr["age"].toInt();
-        int gender = entity_repr["gender"].toInt();
-        int id = entity_repr["id"].toInt();
+    for(auto value: entitiesRepr){
+        QJsonObject entityRepr = value.toObject();
+        QString name = entityRepr["name"].toString();
+        int age = entityRepr["age"].toInt();
+        int gender = entityRepr["gender"].toInt();
+        int id = entityRepr["id"].toInt();
 
         SocialEntity<std::string> entity(name.toStdString(), (Gender)gender);
         entity.setAge(age);
@@ -155,12 +155,12 @@ void MainWindow::loadFromJson(const QString& filename)
 
     }
 
-    for(auto value: relations_repr){
-        QJsonObject relation_repr = value.toObject();
-        QString from = relation_repr["from"].toString();
-        QString to = relation_repr["to"].toString();
-        QString descr = relation_repr["description"].toString();
-        int type = relation_repr["type"].toInt();
+    for(auto value: relationsRepr){
+        QJsonObject relationRepr = value.toObject();
+        QString from = relationRepr["from"].toString();
+        QString to = relationRepr["to"].toString();
+        QString descr = relationRepr["description"].toString();
+        int type = relationRepr["type"].toInt();
 
         if(!graph->addRelation(from.toStdString(), to.toStdString(), (Type)type))
             throw WrongFileDataException(filename);

@@ -50,6 +50,6 @@ private:
     QGraphicsScene *scene;
     QVector<Node*> nodes;
     QVector<int> levels;
-    QMap<int, Node*> id_map;
+    QMap<int, Node*> idMap;
 };
 #endif // GRAPHWIDGET_H
