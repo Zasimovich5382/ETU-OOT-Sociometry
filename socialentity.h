@@ -40,8 +40,8 @@ public:
     void setRating(int new_rating);
     int getRating();
 
+    void setId(int new_id);
     int getId() const;
-    int setId(int new_id);
 
 private:
     int rating;
@@ -178,7 +178,7 @@ int SocialEntity<T>::getId() const
 }
 
 template<class T>
-int SocialEntity<T>::setId(int new_id)
+void SocialEntity<T>::setId(int new_id)
 {
     this->id = new_id;
     Entity<T>::id_counter = new_id;
