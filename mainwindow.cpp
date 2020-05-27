@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(loginForm, SIGNAL(on_setRole(ROLE)), this, SLOT(on_setRole(ROLE)));
 
-    connect(conclusionForm, &ConclusionForm::conclusionText, [=](const QString &text) {
+    connect(conclusionForm, &ConclusionForm::conclusionText, [&](const QString &text) {
         this->conclusion = text; }) ;
 
-    connect(participantsForm, &Participants::updateGraph, [=]() {
+    connect(participantsForm, &Participants::updateGraph, [&]() {
         graphWidget->showGraph(graph); }) ;
 
     resize(1000, 640);
