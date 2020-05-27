@@ -134,11 +134,11 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     }
 
     painter->setPen(QPen(Qt::white, 0));
-    QString data_repr = QString::number(id);
-    if (data_repr.length() == 1)
-        painter->drawText(-3, 5, data_repr);
+    QString dataRepr = QString::number(id);
+    if (dataRepr.length() == 1)
+        painter->drawText(-3, 5, dataRepr);
     else
-        painter->drawText(-2 - data_repr.length()*data_repr.length(), 5, data_repr);
+        painter->drawText(-2 - dataRepr.length()*dataRepr.length(), 5, dataRepr);
 }
 
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)

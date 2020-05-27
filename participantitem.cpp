@@ -4,15 +4,15 @@ ParticipantItem::ParticipantItem(const QString &participantInfo, const QString& 
 {
     QHBoxLayout *horizontalLayout = new QHBoxLayout();
 
-    QLabel* genger_label = new QLabel(genger, this);
-    QLabel* id_label = new QLabel(QString::number(id), this);
+    QLabel* genderLabel = new QLabel(genger, this);
+    QLabel* idLabel = new QLabel(QString::number(id), this);
 
     this->like = new QRadioButton("+");
     this->dislike = new QRadioButton("-");
     this->participantInfo = new QLabel(participantInfo);
-    horizontalLayout->addWidget(id_label);
+    horizontalLayout->addWidget(idLabel);
     horizontalLayout->addWidget(this->participantInfo);
-    horizontalLayout->addWidget(genger_label);
+    horizontalLayout->addWidget(genderLabel);
     horizontalLayout->addWidget(this->like);
     horizontalLayout->addWidget(this->dislike);
     setLayout(horizontalLayout);

@@ -2,8 +2,8 @@
 #define ITERATOR_H
 
 #include <string>
-#include <iostream>
 #include <list>
+
 #include "socialentity.h"
 
 
@@ -12,7 +12,7 @@ class ERContainer;
 
 template<class T>
 class EntityIterator{
-    typedef SocialEntity<T>  value_type;
+    typedef SocialEntity<T>  valueType;
     typedef SocialEntity<T>& reference;
     typedef SocialEntity<T>* pointer;
 

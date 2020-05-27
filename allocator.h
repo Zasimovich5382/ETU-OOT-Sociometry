@@ -1,6 +1,6 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
-#include <iostream>
+
 #include <limits>
 
 namespace Alloc {
@@ -42,12 +42,12 @@ namespace Alloc {
        }
 
        T* allocate (std::size_t num, const void* = 0) {
-           T* ret = (T*)(::operator new(num * sizeof(T)));
+           T* ret = static_cast<T*>(::operator new(num * sizeof(T)));
            return ret;
        }
 
        void construct (T* p, const T& value) {
-           new((void*)p)T(value);
+           new(static_cast<void*>(p))T(value);
        }
 
        void destroy (T* p) {

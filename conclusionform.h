@@ -2,7 +2,6 @@
 #define CONCLUSIONFORM_H
 
 #include <QWidget>
-#include <QAbstractButton>
 
 namespace Ui {
 class ConclusionForm;

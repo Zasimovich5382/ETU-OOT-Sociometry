@@ -8,17 +8,12 @@ Participants::Participants(QWidget *parent) :
     ui(new Ui::Participants)
 {
     ui->setupUi(this);
-    current_participant = "";
+    currentParticipant = "";
 }
 
 Participants::~Participants()
 {
     delete ui;
-}
-
-void Participants::closeEvent (QCloseEvent *event)
-{
-    // on close update the graph
 }
 
 void Participants::setGraph(ERContainer<std::string> *graph)
@@ -93,7 +88,7 @@ void Participants::initParticipantsList()
 
 void Participants::on_chooseParticipantBox_currentIndexChanged(const QString &name)
 {
-    current_participant = name;
+    currentParticipant = name;
     for (int i = 0; i < ui->participantsListWidget->count(); i++){
         QListWidgetItem* item = ui->participantsListWidget->item(i);
         ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
@@ -119,7 +114,7 @@ void Participants::participantFormAddParticipant(SocialEntity<std::string>& e)
 
 void Participants::participantFormSetRelations()
 {
-    auto* entity = graph->find(current_participant.toStdString());
+    auto* entity = graph->find(currentParticipant.toStdString());
     if (!entity) return;
 
     for (int i = 0; i < ui->participantsListWidget->count(); i++){
