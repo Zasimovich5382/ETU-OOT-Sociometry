@@ -9,6 +9,7 @@ Edge::Edge(Node *sourceNode, Node *destNode, int relType)
     : arrowSize(10)
 {
     color = Qt::black;
+    hasOpposite = false;
     this->relType = relType;
     setAcceptedMouseButtons(0);
 
@@ -48,6 +49,14 @@ void Edge::adjust()
     } else {
         sourcePoint = destPoint = line.p1();
     }
+
+    if(hasOpposite){
+        float angle = atan2f((destPoint - sourcePoint).x(), (destPoint - sourcePoint).y());
+        QPointF angle_off(5 * cosf(angle), 5 * sinf(-angle));
+
+        sourcePoint += angle_off;
+        destPoint += angle_off;
+    }
 }
 
 QRectF Edge::boundingRect() const
@@ -70,6 +79,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
         return;
 
     QLineF line(sourcePoint, destPoint);
+
     if (qFuzzyCompare(line.length(), qreal(0.)))
         return;
 

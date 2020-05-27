@@ -24,8 +24,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(1.2), qreal(1.2));
     setMinimumSize(400, 400);
-    levels << 60 << 120 << 180 << 240;
 
+    levels << 60 << 120 << 180 << 240;
     drawLevels();
 }
 
@@ -59,19 +59,16 @@ void GraphWidget::showGraph(ERContainer<std::string>* graph){
 
     float angle = 0;
     float angle_step = (2*M_PI)/nodes_len;
-//    qDebug() << max_rating;
 
-    //all intrvals are [x, y)
+    //all intervals are [x, y)
     rating_lvls << qMakePair(max_rating, max_rating+1) //stars
                 << qMakePair(border, max_rating) // wanted
                 << qMakePair(1, border) // ignored
                 << qMakePair(0, 1); // isolated
-//    qDebug() << rating_lvls;
     for(auto& e : *graph){
         //find index of intervals
         //interval indexes are the same as ratings indexes
         int index = rating_lvls.size()-1;
-//        qDebug() << "id" << e.getId() << "Rating" << e.getRating();
         for (int i = 0; i < rating_lvls.size(); i++){
             int rating = e.getRating();
             if (rating >= rating_lvls[i].first && rating < rating_lvls[i].second){
@@ -79,14 +76,17 @@ void GraphWidget::showGraph(ERContainer<std::string>* graph){
                 break;
             }
         }
-
         id_map[e.getId()]->setPos((levels[index]-30)*cosf(angle), (levels[index]-30)*sinf(angle));
         angle += angle_step;
-
         for(auto& r: e.getRelations()){
             int first_id = r.getFirstEntity()->getId();
             int second_id = r.getSecondEntity()->getId();
-            scene->addItem(new Edge(id_map[first_id], id_map[second_id], r.getType()));
+            Edge* edge = new Edge(id_map[first_id], id_map[second_id], r.getType());
+            if (r.getSecondEntity()->isRelatedTo(e.getName())){
+                edge->hasOpposite = true;
+                edge->adjust();
+            }
+            scene->addItem(edge);
         }
     }
 }
