@@ -6,8 +6,6 @@ LoginForm::LoginForm(QWidget *parent) :
     ui(new Ui::LoginForm)
 {
     ui->setupUi(this);
-
-//    connect(ui->signIn, SIGNAL(clicked()), this, SLOT(onClicked()));
 }
 
 LoginForm::~LoginForm()
@@ -24,14 +22,8 @@ void LoginForm::on_signIn_clicked()
     }
     else {
         emit on_setRole(USER);
-//        emit on_setRole(ADMIN);
     }
     ui->login->clear();
     ui->password->clear();
     close();
 }
-
-//void LoginForm::onClicked()
-//{
-
-//}

@@ -19,9 +19,6 @@ public:
     SocialEntity<T>* getFirstEntity();
     SocialEntity<T>* getSecondEntity();
 
-//    void setFirstEntity(Entity* entity);
-//    void setSecondEntity(Entity* entity);
-
     void setDescription(const std::string& descr);
     std::string getDescription() const;
 
@@ -74,15 +71,15 @@ std::string Relation<T>::getDescription() const
 }
 
 template<class T>
-void Relation<T>::setType(Type new_type) {
-    if (this->type == new_type) return;
+void Relation<T>::setType(Type newType) {
+    if (this->type == newType) return;
 
-    this->type = new_type;
+    this->type = newType;
     if(this->type == POSITIVE){
         secondEntity->setRating(secondEntity->getRating() + 1);
     } else {
-        int new_rating = secondEntity->getRating() - 1;
-        secondEntity->setRating(new_rating > 0 ? new_rating : 0);
+        int newRating = secondEntity->getRating() - 1;
+        secondEntity->setRating(newRating > 0 ? newRating : 0);
     }
 }
 

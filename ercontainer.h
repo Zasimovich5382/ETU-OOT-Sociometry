@@ -1,8 +1,7 @@
 #ifndef ER_CONTAINER_H
 #define ER_CONTAINER_H
-#include <iostream>
+
 #include <list>
-#include <algorithm>
 
 #include "iterator.h"
 #include "socialentity.h"
@@ -12,19 +11,16 @@
 template <class T>
 class ERContainer
 {
-    using entities_type = std::list<SocialEntity<T>>;
+    using entitiesType = std::list<SocialEntity<T>>;
+
 public:
-    // using iterator = EntityIterator<T>;
-    using iterator = typename entities_type::iterator;
+    using iterator = typename entitiesType::iterator;
     using entity = SocialEntity<T>;
     using relation = Relation<T> ;
 
     ERContainer();
     ERContainer(std::initializer_list<SocialEntity<T>> values);
     ~ERContainer();
-
-    // iterator begin() { return iterator(entities.data()); };
-    // iterator end() { return iterator(entities.data() + entities.size()); };
 
     iterator begin() { return entities.begin(); }
     iterator end() { return entities.end(); }
@@ -40,7 +36,7 @@ public:
     void removeEntity(const T& name);
     void removeRelation(const T& first, const T& second);
 
-    void editRelation(const T& first, const T& second, Type new_type);
+    void editRelation(const T& first, const T& second, Type newType);
 
     void clear();
 
@@ -87,14 +83,14 @@ bool ERContainer<T>::addEntity(SocialEntity<T> entity)
 }
 
 template<class T>
-bool ERContainer<T>::addEntity(const T &name, Gender gender)
+bool ERContainer<T>::addEntity(const T& name, Gender gender)
 {
     SocialEntity<T> e = SocialEntity<T>(name, gender);
     return addEntity(e);
 }
 
 template<class T>
-bool ERContainer<T>::addRelation(const T &first, const T &second, Type type)
+bool ERContainer<T>::addRelation(const T& first, const T& second, Type type)
 {
 
     SocialEntity<T>* firstEntity = find(first);
@@ -137,13 +133,13 @@ void ERContainer<T>::removeRelation(const T& first, const T& second)
 }
 
 template<class T>
-void ERContainer<T>::editRelation(const T &first, const T &second, Type new_type)
+void ERContainer<T>::editRelation(const T& first, const T& second, Type newType)
 {
     SocialEntity<T>* firstEntity = find(first);
     if (!firstEntity) return;
 
     Relation<T>* r = firstEntity->getRelationWith(second);
-    if (r) r->setType(new_type);
+    if (r) r->setType(newType);
 }
 
 template<class T>

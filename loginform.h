@@ -27,8 +27,6 @@ signals:
 private slots:
     void on_signIn_clicked();
 
-//    void onClicked();
-
 private:
     Ui::LoginForm *ui;
 };

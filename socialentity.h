@@ -1,10 +1,11 @@
 #ifndef SOCIALENTITY_H
 #define SOCIALENTITY_H
 
+#include <list>
+
 #include "entity.h"
 #include "relation.h"
 #include "allocator.h"
-#include <list>
 
 enum Gender {
     MALE,
@@ -20,10 +21,8 @@ public:
     SocialEntity(const T& name, int age, Gender gender);
 
     void addRelation(Relation<T> relation);
-    // void addRelation(SocialEntity<T>* other, Type type);
     void removeRelation(const T& name);
     Relation<T>* getRelationWith(const T& name);
-//    virtual void removeAllRelations() = 0;
 
     bool isRelatedTo(const T& name);
 
@@ -41,12 +40,11 @@ public:
     void setRating(int new_rating);
     int getRating();
 
+    void setId(int new_id);
     int getId() const;
-    int setId(int new_id);
 
 private:
     int rating;
-
     int id;
     T name;
     Gender gender;
@@ -60,7 +58,7 @@ SocialEntity<T>::SocialEntity():
     gender(DEFAULT),
     age(-1),
     rating(0),
-    id(++Entity<T>::id_counter)
+    id(++Entity<T>::idCounter)
 {}
 
 template<class T>
@@ -69,7 +67,7 @@ SocialEntity<T>::SocialEntity(const T& name, Gender gender):
     gender(gender),
     age(-1),
     rating(0),
-    id(++Entity<T>::id_counter)
+    id(++Entity<T>::idCounter)
 {}
 
 template<class T>
@@ -152,9 +150,9 @@ int SocialEntity<T>::getAge() {
 }
 
 template<class T>
-void SocialEntity<T>::setRating(int new_rating)
+void SocialEntity<T>::setRating(int newRating)
 {
-    this->rating = new_rating;
+    this->rating = newRating;
 }
 
 template<class T>
@@ -180,10 +178,10 @@ int SocialEntity<T>::getId() const
 }
 
 template<class T>
-int SocialEntity<T>::setId(int new_id)
+void SocialEntity<T>::setId(int newId)
 {
-    this->id = new_id;
-    Entity<T>::id_counter = new_id;
+    this->id = newId;
+    Entity<T>::idCounter = newId;
 }
 
 #endif // SOCIALENTITY_H
