@@ -29,6 +29,8 @@ private slots:
 
     void on_chooseParticipantBox_currentIndexChanged(const QString &name);
 
+    void on_deleteParticipantBtn_clicked();
+
 signals:
     void updateGraph();
 
