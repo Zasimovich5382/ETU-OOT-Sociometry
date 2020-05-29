@@ -45,6 +45,7 @@ void MainWindow::on_setRole(enum ROLE role)
         ui->updateParticipantsBtn->setHidden(true);
         ui->writeConclusionBtn->setHidden(true);
         ui->showResearchResultBtn->setHidden(false);
+        ui->saveCurrentStateBtn->setHidden(true);
     }
     this->show();
 }
