@@ -142,7 +142,6 @@ void Participants::on_deleteParticipantBtn_clicked()
     for (int i = 0; i < ui->participantsListWidget->count(); i++){
         QListWidgetItem* item = ui->participantsListWidget->item(i);
         ParticipantItem* widget = (ParticipantItem* )ui->participantsListWidget->itemWidget(item);
-        widget->clearButtons();
         if(widget->getParticipantInfo() == currentParticipant){
             ui->participantsListWidget->takeItem(i);
             break;
@@ -150,4 +149,5 @@ void Participants::on_deleteParticipantBtn_clicked()
     }
 
     ui->chooseParticipantBox->removeItem(ui->chooseParticipantBox->currentIndex());
+    emit updateGraph();
 }
