@@ -25,6 +25,8 @@ void Participants::on_addParticipantBtn_clicked()
 {
     QString name = ui->nameLine->text();
 
+    if(graph->find(name.toStdString()) != nullptr) return;
+
     if(ui->femaleRB->isChecked()){
         graph->addEntity(name.toStdString(), FEMALE);
     }
