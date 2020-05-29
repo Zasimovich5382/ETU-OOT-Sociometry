@@ -10,8 +10,7 @@ ConclusionForm::ConclusionForm(QWidget *parent) :
 
 void ConclusionForm::loadTextInAdminMode(bool isAdmin)
 {
-    ui->textForm->setEnabled(isAdmin);
-    ui->updateDataBox->setHidden(!isAdmin);
+    ui->textForm->setReadOnly(!isAdmin);
 }
 
 void ConclusionForm::setText(const QString &text)
